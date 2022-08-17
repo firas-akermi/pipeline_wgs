@@ -302,7 +302,7 @@ if __name__ == '__main__':
     parser.add_argument("-query_sv_path","--vcf_query_sv_path",help="path to  vcf query for witty", type = str, required= True)
     parser.add_argument("-query_sv_name","--vcf_query_sv_name",help="query vcf name for witty", type = str, required= False)
     parser.add_argument("-Enviro","--Environnement",help="Calculation environment", type = str, required= True)
-    parser.add_argument("-too","--tools", help="tool to run Hapy, ClinSV or Witty",type = str, required= True)
+    parser.add_argument("-tool","--tools", help="tool to run Hapy, ClinSV or Witty",type = str, required= True)
 
 
 
