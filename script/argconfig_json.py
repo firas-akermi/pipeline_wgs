@@ -12,7 +12,7 @@ import os
 import glob
 ############
 def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Path,Fasta_Path,
-                Sample_Path,Reference, Version, Run, Alias, Target, Disease, Sample,
+                Sample_Path,old_pipelines,Reference, Version, Run, Alias, Target, Disease, Sample,
                  Type, Date, analysis_name,fasta_name,bed_name,ref_vcf_name,user,ip,
                  s3_bucket,base_bam,prefix_analysis,suffix_analysis,vcf_hg002_path,vcf_hg002_name,
                  bed_hg002_path,bed_hg002_name,sv_vcf_query_path,sv_vcf_query_name,Env,tool):
@@ -26,6 +26,7 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
         "Fasta_Path":Fasta_Path,
         "Sample_Path": Sample_Path,
         "base_bam":base_bam,
+        "old_pipelines":old_pipelines,
         "vcf_hg002_path":vcf_hg002_path,
         "bed_hg002_path":bed_hg002_path,
         "sv_query_path":sv_vcf_query_path
@@ -287,6 +288,7 @@ if __name__ == '__main__':
     parser.add_argument("-GSF","--Fasta_reference",help="Fasta file name",type =str,required= False)
     parser.add_argument("-GSB","--Gold_standard_bed",help="Bed File name hg001",type =str,required= False)
     parser.add_argument("-GSV","--Gold_standard_vcf",help="VCF Standard file name hg001",type =str,required= False)
+    parser.add_argument("-od","--old_pipelines",help="Old pipelines summary results",type =str,nargs='+',required= False)
     parser.add_argument("-u","--user",help="S3 user name", type = str, required= True)
     parser.add_argument("-ip","--endpoint",help="path to json containing ip adresses", type = str, required= False)
     parser.add_argument("-bn","--bucket_name",help="S3 Bucket name", type = str, required= True)
@@ -309,7 +311,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     create_json(args.input_path, args.output_path, args.snakemake_rules_path,
                 args.reference_vcf_path, args.bed_path, args.reference_fasta_path, 
-                args.sample_path, args.reference,args.Version,args.Run,
+                args.sample_path,args.old_pipelines, args.reference,args.Version,args.Run,
                 args.Alias, args.Target, args.Disease, args.Sample, args.Type, args.Date,
                 args.Analysis_name,args.Fasta_reference,args.Gold_standard_bed,args.Gold_standard_vcf,args.user,args.endpoint,
                 args.bucket_name,args.bams_base,args.prefix_analysis,args.suffix_analysis,
