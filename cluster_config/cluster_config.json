@@ -1,0 +1,197 @@
+{
+    "__default__": {
+        "name": "Validation pipeline hap.py",
+        "tags": "snakemake,validation, MR, hap.py",
+        "volume_snakemake": "snakemake",
+        "volume_home": "home",
+        "volume_annotations": "annotations",
+        "volume_irods": "irods",
+        "volume_scratch2": "scratch2",
+        "volume_scratch3": "scratch3",
+        "cpu": 4,
+        "mem": 5,
+        "image": "sequoia-docker-tools/snakemake:3.9.0-4"
+    },
+    "Compression_de_fichier_VCF": {
+        "name": "Compression_de_fichier_VCF",
+        "tags": "snakemake,compression_bgzip_tabix",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/hap.py:0.3.10-3"
+    },
+    "Indexation_de_fichier_VCF": {
+        "name": "Indexation_de_fichier_VCF",
+        "tags": "snakemake,indexing_tabix",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/hap.py:0.3.10-3"
+    },
+    "Comparaison_des_Haplotypes": {
+        "name": "Comparaison_des_Haplotypes",
+        "tags": "snakemake,benchmarking_happy",
+        "cpu": 25,
+        "mem": 64,
+        "image": "sequoia-docker-tools/hap.py:0.3.10-3"
+    },
+    "Indexation_de_fichier_VCF_de_Benchmarking": {
+        "name": "Indexation_de_fichier_VCF_de_Benchmarking",
+        "tags": "snakemake,indexing,hap.py,tabix",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/hap.py:0.3.10-3"
+    },
+    "Analyse_de_variants": {
+        "name": "Analyse_de_variants",
+        "tags": "snakemake,bcftools,happy",
+        "cpu": 2,
+        "mem": 4,
+        "image": "sequoia-docker-tools/bcftools:1.9-1"
+    },
+    "Extraction_des_informations": {
+        "name": "Extraction_des_informations",
+        "tags": "snakemake,grep,bcftools,happy",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-infra/debian:stretch"
+    },
+    "Mise_en_forme_sous_format_csv":{
+        "name": "Mise_en_forme_sous_format_csv",
+        "tags": "csv,mise_en_forme",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/snakemake:3.9.0-4"
+    },
+    "Analyse_des_resultats_et_generation_du_rapport_html": {
+        "name": "Analyse_des_resultats_et_generation_du_rapport_html",
+        "tags": "snakemake,hapy,resultat,html,visualisation",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/happy_validation:1.0.0"
+    },
+    "stats_hapy_to_s3": {
+      "name": "stats_hapy_to_s3",
+      "tags": "snakemake,stats,hapy,aws_s3,csv",
+      "cpu": 1,
+      "mem": 1,
+      "image": "sequoia-docker-tools/happy_validation:1.0.0"
+    },
+      "write_hapy_to_csv": {
+        "name": "write_hapy_to_csv",
+        "tags": "snakemake,hapy,resultat,aws_s3,tar",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/happy_validation:1.0.0"
+      },
+      "compression_happy": {
+        "name": "compression_happy",
+        "tags": "snakemake,hapy,resultat,compression,tar",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-infra/debian:stretch"
+      },
+      "s3_happy": {
+        "name": "s3_happy",
+        "tags": "snakemake,hapy,resultat,aws_s3,tar",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/importation_s3:4.0"
+      },
+    "merge_bam": {
+        "name": "merge_bam",
+        "tags": "snakemake,hapy,resultat,merge_bam,sambamba",
+        "cpu": 5,
+        "mem": 14,
+        "image": "sequoia-docker-tools/sambamba:0.7.1-static"
+    },
+    "generate_ped": {
+        "name": "generate_ped",
+        "tags": "snakemake,generate_ped",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/generate_ped:1.0-2"
+      },
+      "clinsv_bw": {
+        "name": "clinsv_bw",
+        "tags": "snakemake,clinsv-bw",
+        "cpu": 24,
+        "mem": 40,
+        "image": "sequoia-docker-tools/clinsv:1.0.1-1"
+      },
+      "clinsv_lumpy": {
+        "name": "clinsv_lumpy",
+        "tags": "snakemake,clinsv-lumpy",
+        "cpu": 12,
+        "mem": 15,
+        "image": "sequoia-docker-tools/clinsv:1.0.1-1"
+      },
+      "clinsv_cnvnator": {
+        "name": "clinsv_cnvnator",
+        "tags": "snakemake,clinsv-cnvnator",
+        "cpu": 2,
+        "mem": 14,
+        "image": "sequoia-docker-tools/clinsv:1.0.1-1"
+      },
+      "clinsv_annotate": {
+        "name": "clinsv_annotate",
+        "tags": "snakemake,clinsv-annotate",
+        "cpu": 2,
+        "mem": 18,
+        "image": "sequoia-docker-tools/clinsv:1.0.1-1"
+      },
+      "clinsv_prioritize": {
+        "name": "clinsv_prioritize",
+        "tags": "snakemake,clinsv-prioritize",
+        "cpu": 1,
+        "mem": 4,
+        "image": "sequoia-docker-tools/clinsv:1.0.1-1"
+      },
+      "clinsv_qc": {
+        "name": "clinsv_qc",
+        "tags": "snakemake,clinsv-qc",
+        "cpu": 1,
+        "mem": 2,
+        "image": "sequoia-docker-tools/clinsv:1.0.1-1"
+      },
+      "compression_clinsv": {
+        "name": "compression_clinsv",
+        "tags": "snakemake,ClinSV,resultat,compression,tar",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-infra/debian:stretch"
+      },
+      "s3_clinsv": {
+        "name": "s3_clinsv",
+        "tags": "snakemake,ClinSV,resultat,aws_s3,tar",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/importation_s3:4.0"
+      },
+      "witty":{
+        "name":"witty",
+        "tags":"snakemake,wittyer,sv",
+        "cpu": 2,
+        "mem": 8,
+        "image": "sequoia-docker-infra/wittyer:v0.3.4-200220621"
+      },
+      "witty_csv": {
+        "name": "witty_csv",
+        "tags": "snakemake,witty,resultat,aws_s3,csv",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/happy_validation:1.0.0"
+      },
+      "compression_witty": {
+        "name": "compression_witty",
+        "tags": "snakemake,wittyer,resultat,compression,tar",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-infra/debian:stretch"
+      },
+      "s3_witty": {
+        "name": "s3_witty",
+        "tags": "snakemake,wittyer,resultat,aws_s3,tar",
+        "cpu": 1,
+        "mem": 1,
+        "image": "sequoia-docker-tools/importation_s3:4.0"
+      }
+}
