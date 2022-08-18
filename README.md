@@ -12,9 +12,7 @@ Ce pipeline permet d'effectuer la validation de detection des variants (SNP,INDE
 python3 argconfig_json.py -h
 ```
 # NB:
-## Il ne faut pas spécifier l'extension des fichiers: si on a un fichier Name.vcf.gz on donne uniquement le nom du fichier dans ce cas (Name), de même pour toutes les autres extensions (e.g bam,fa,bed...).
-
-## Il ne faut pas aussi ajouter un "/" à la fin d'un chemin d'accés d'un fichier: si on a un chemin "/path/to/folder/" il faut éliminer le dernier "/" -----> "/path/to/folder"
+## Il ne faut pas spécifier les extensions des fichiers: Si on a un fichier Name.vcf.gz on donne uniquement le nom du fichier dans ce cas (Name), de même pour toutes les autres extensions (e.g bam,fa,bed...). Il ne faut pas aussi ajouter un "/" à la fin d'un chemin d'accés d'un fichier: si on a un chemin "/path/to/folder/" il faut éliminer le dernier "/" -----> "/path/to/folder"
 # Exemple:
 ```
 #!/bin/bash
@@ -26,7 +24,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/argconfig_json.py -i /scr
 set -o pipefail; /data/snakemake/miniconda3/envs/snakemake/bin/snakemake -s [Path to snakefile] -k --rerun-incomplete  --configfile [Path to pipeline_config file] --cluster-config [path to cluster config file] --cluster 'godjob.py create -n {cluster.name}_13BB0 -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods}  -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' -j 40 -w 60 2>&1 | tee [path of log file]/pipeline_validation_wgs.log
 ```
 
- Le pipeline permet la compression et le stockage des résultats sur aws S3,après chaque analyse. Pour cela la configuration de S3 doit être spécifiée sous :
+ Le pipeline permet la compression et le stockage des résultats sur aws_S3,après chaque analyse. Pour cela la [configuration](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-configure-files.html) de S3 doit être spécifiée sous :
 ```
 /home/.aws/credentials
 ```
