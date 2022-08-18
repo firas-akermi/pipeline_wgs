@@ -18,6 +18,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/argconfig_json.py -i /scr
 ```
 # Exécution du pipeline(go_docker)
 ```
+#!/bin/bash
 set -o pipefail; /data/snakemake/miniconda3/envs/snakemake/bin/snakemake -s [Path to snakefile] -k --rerun-incomplete  --configfile [Path to pipeline_config file] --cluster-config [path to cluster config file] --cluster 'godjob.py create -n {cluster.name}_13BB0 -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods}  -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' -j 40 -w 60 2>&1 | tee [path of log file]/pipeline_validation_wgs.log
 ```
 
