@@ -1,45 +1,122 @@
 {
-    "witty": {
-        "options": "-em"
+    "SNP_INDEL_het": {
+        "FP": "-i ' BD[1]=\"FP\" && BLT[1]=\"het\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"het\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"het\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BLT[0]=\"het\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BLT[0]=\"het\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"het\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BLT[1]=\"het\" && BLT[0]=\"nocall\" ' "
+    },
+    "Variant_Scores": {
+        "Variant": [
+            "SNP_INDEL_ALL",
+            "SNP_INDEL_het",
+            "SNP_INDEL_homalt",
+            "SNP_INDEL_hetalt",
+            "SNP_INDEL_het_homalt",
+            "SNP_ALL",
+            "SNP_het",
+            "SNP_homalt",
+            "SNP_hetalt",
+            "SNP_het_homalt",
+            "INDEL_ALL",
+            "INDEL_het",
+            "INDEL_homalt",
+            "INDEL_hetalt",
+            "INDEL_het_homalt"
+        ],
+        "Scores": [
+            "TP",
+            "FN",
+            "FP",
+            "FNP",
+            "FNT",
+            "FPP",
+            "FPT"
+        ]
+    },
+    "SNP_INDEL_het_homalt": {
+        "FP": "-i ' BD[1]=\"FP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && (BLT[0]=\"het\" || BLT[0]=\"homalt\") ' ",
+        "FN": "-i ' BD[0]=\"FN\" && (BLT[0]=\"het\" || BLT[0]=\"homalt\") ' ",
+        "TP": "-i ' BD[0]=\"TP\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && (BLT[1]=\"het\"|| BLT[1]=\"homalt\" ) ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") && BLT[0]=\"nocall\" ' "
     },
     "sambamba_merge_clinsv": {
         "OPTIONS": "-t 4"
     },
-    "SNP_het_homalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BVT[0]=\"SNP\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BVT[0]=\"SNP\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\" ) && BVT[1]=\"SNP\" ' "
+    "clinsv_bw": {
+        "lumpy": "5",
+        "OPTIONS": "/data/annotations/Human/GRCh38/index/clinSV/1.0/refdata-b38"
     },
-    "INDEL_ALL": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\"  ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BVT[1]=\"INDEL\" ' "
+    "S3": {
+        "Bucket_name": "spim-dev-validation",
+        "USER": "spim-dev",
+        "IP": "/data/snakemake/spim-dev/boto/endpoint.json"
+    },
+    "SNP_ALL": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"SNP\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BVT[1]=\"SNP\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[0]=\"nocall\" ' "
+    },
+    "INDEL_hetalt": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"hetalt\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\" && BLT[0]=\"hetalt\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"hetalt\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" && BLT[0]=\"hetalt\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"hetalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"hetalt\" && BVT[1]=\"INDEL\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"hetalt\" && BLT[0]=\"nocall\" ' "
+    },
+    "SNP_hetalt": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"hetalt\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"hetalt\" && BVT[0]=\"SNP\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"hetalt\" && BVT[0]=\"SNP\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" && BLT[0]=\"hetalt\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && BLT[0]=\"hetalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"hetalt\"&& BVT[1]=\"SNP\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"hetalt\" && BLT[0]=\"nocall\" ' "
+    },
+    "general_path": {
+        "base_bam": "/scratch3/spim-preprod/pipeline_trio_wgs/data",
+        "vcf_hg002_path": "/data/annotations/Human/hg38/references/NA24385_HG002/NISTv4.2.1",
+        "bed_hg002_path": "/data/annotations/Human/hg38/references/NA24385_HG002/NISTv4.2.1",
+        "Sample_Path": "/scratch2/tmp/fakermi",
+        "SNAKEMAKE_RULES": "/scratch2/tmp/fakermi/pipeline_validation_happy/Rules",
+        "BED_Path": "/data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2",
+        "REFERENCE_VCF_Path": "/data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2",
+        "INPUT_PATH": "/scratch2/tmp/fakermi/pipeline_validation_happy",
+        "sv_query_path": "/scratch2/tmp/vsaillour/tmp/20220704_wittyer_test/A00666_0012_WGS_MR_FS00505001_index_21042022",
+        "OUTPUT_PATH": "/scratch2/tmp/fakermi/pipeline_validation_happy/data",
+        "Fasta_Path": "/data/annotations/Human/GRCh38/index/sorted_primary_assemblies"
     },
     "SNP_INDEL_hetalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && BLT[1]=\"hetalt\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"hetalt\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BLT[0]=\"hetalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BLT[0]=\"hetalt\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"hetalt\" ' ",
         "FP": "-i ' BD[1]=\"FP\" && BLT[1]=\"hetalt\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"hetalt\" ' "
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"hetalt\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"hetalt\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BLT[0]=\"hetalt\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BLT[0]=\"hetalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"hetalt\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BLT[1]=\"hetalt\" && BLT[0]=\"nocall\" ' "
     },
-    "SNP_het": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"het\" && BLT[0]!=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"het\" && BVT[0]=\"SNP\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && BLT[0]=\"het\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" && BLT[0]=\"het\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"het\" && BVT[0]=\"SNP\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"het\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"het\" && BVT[1]=\"SNP\" ' "
+    "witty": {
+        "options": "-em"
+    },
+    "INDEL_het_homalt": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\" && (BLT[0]=\"het\" || BLT[0]=\"homalt\") ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && (BLT[0]=\"het\" || BLT[0]=\"homalt\") ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BVT[1]=\"INDEL\" && BD[1]=\"FP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\" ) ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") && BLT[0]=\"nocall\" ' "
     },
     "bam_options": {
         "paths": [
@@ -70,191 +147,107 @@
             "/scratch3/spim-preprod/pipeline_trio_wgs/data/A00666_0012_WGS_MR_FS00505001_21042022/FS00505001_S6/chr_Y/FS00505001_S6_chr_Y_markdup"
         ]
     },
-    "INDEL_homalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"homalt\" && BLT[0]=\"nocall\"  ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"homalt\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"homalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" && BLT[0]=\"homalt\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\" && BLT[0]=\"homalt\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"homalt\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"homalt\" && BVT[1]=\"INDEL\" ' "
-    },
-    "SNP_hetalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"hetalt\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"hetalt\" && BVT[0]=\"SNP\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && BLT[0]=\"hetalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" && BLT[0]=\"hetalt\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"hetalt\" && BVT[0]=\"SNP\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"hetalt\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"hetalt\"&& BVT[1]=\"SNP\" ' "
+    "SNP_het_homalt": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BVT[0]=\"SNP\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BVT[0]=\"SNP\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\" ) && BVT[1]=\"SNP\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") && BLT[0]=\"nocall\" ' "
     },
     "SNP_INDEL_homalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && BLT[1]=\"homalt\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"homalt\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BLT[0]=\"homalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BLT[0]=\"homalt\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"homalt\" ' ",
         "FP": "-i ' BD[1]=\"FP\" && BLT[1]=\"homalt\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"homalt\" ' "
-    },
-    "INDEL_het": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"het\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"het\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"het\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" && BLT[0]=\"het\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\" && BLT[0]=\"het\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"het\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"het\" && BVT[1]=\"INDEL\" ' "
-    },
-    "SNP_INDEL_ALL": {
-        "FPP": "-i ' BD[1]=\"FP\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" ' "
-    },
-    "SNP_INDEL_het": {
-        "FPP": "-i ' BD[1]=\"FP\" && BLT[1]=\"het\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"het\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BLT[0]=\"het\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BLT[0]=\"het\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"het\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BLT[1]=\"het\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"het\" ' "
-    },
-    "SNP_ALL": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"SNP\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BVT[1]=\"SNP\" ' "
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"homalt\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"homalt\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BLT[0]=\"homalt\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BLT[0]=\"homalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"homalt\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BLT[1]=\"homalt\" && BLT[0]=\"nocall\" ' "
     },
     "general_information": {
-        "Date": "21/04/2022",
-        "Target": "WGS",
-        "VCF_reference": "HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer",
-        "Run": "A00666",
-        "sv_query_name": "A00666_0012_WGS_MR_FS00505001_index_21042022_SV-CNV",
-        "Version": "3.3.1",
-        "Sample": "FS00505001",
-        "Disease": "MR",
-        "Full_name": "A00666_0012_WGS_MR_FS00505001_index_21042022_final",
-        "Alias": "0012",
         "bed_hg002_file_name": "HG002_GRCh38_1_22_v4.2.1_benchmark_noinconsistent",
-        "Description": "This script creates a config file for variant calling validation",
-        "vcf_hg002_file_name": "HG002_GRCh38_1_22_v4.2.1_benchmark",
+        "Fasta_reference": "GRCh38.92",
         "Reference": "NA12878",
         "tool": "Hap.py",
-        "Bed_file_name": "HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7",
-        "Type": "index",
+        "Alias": "0012",
         "suffix_analysis": "FS00505001_S6",
+        "Bed_file_name": "HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7",
+        "VCF_reference": "HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer",
+        "sv_query_name": "A00666_0012_WGS_MR_FS00505001_index_21042022_SV-CNV",
+        "Type": "index",
         "Environnement": "Scratch3",
+        "Description": "This script creates a config file for variant calling validation",
+        "Version": "3.3.1",
+        "Disease": "MR",
         "prefix_analysis": "A00666_0012_WGS_MR_FS00505001_21042022",
-        "Fasta_reference": "GRCh38.92"
-    },
-    "scripts": {
-        "extract_script": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/extraction.py",
-        "create_form": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/create_report.py",
-        "hapy_S3_csv": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/csv_hapy_to_s3.py",
-        "S3_hapy": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/aws_s3_hap.py",
-        "witty_S3_csv": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/witty_to_csv.py",
-        "hapy_stats_S3": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/hapy_stats_S3.py"
-    },
-    "clinsv_bw": {
-        "OPTIONS": "/data/annotations/Human/GRCh38/index/clinSV/1.0/refdata-b38",
-        "lumpy": "5"
+        "Sample": "FS00505001",
+        "Date": "21/04/2022",
+        "Run": "A00666",
+        "Full_name": "A00666_0012_WGS_MR_FS00505001_index_21042022_final",
+        "Target": "WGS",
+        "vcf_hg002_file_name": "HG002_GRCh38_1_22_v4.2.1_benchmark"
     },
     "SNP_homalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"homalt\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"homalt\" && BVT[0]=\"SNP\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && BLT[0]=\"homalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" && BLT[0]=\"homalt\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"homalt\" && BVT[0]=\"SNP\" ' ",
         "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"homalt\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"homalt\" && BVT[1]=\"SNP\" ' "
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"homalt\" && BVT[0]=\"SNP\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"homalt\" && BVT[0]=\"SNP\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" && BLT[0]=\"homalt\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && BLT[0]=\"homalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"homalt\" && BVT[1]=\"SNP\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"homalt\" && BLT[0]=\"nocall\" ' "
     },
-    "INDEL_hetalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"hetalt\" && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"hetalt\" ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"hetalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" && BLT[0]=\"hetalt\" ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\" && BLT[0]=\"hetalt\" ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"hetalt\" ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"hetalt\" && BVT[1]=\"INDEL\" ' "
+    "INDEL_ALL": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\"  ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BVT[1]=\"INDEL\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[0]=\"nocall\" ' "
     },
-    "INDEL_het_homalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && (BLT[0]=\"het\" || BLT[0]=\"homalt\") ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\" && (BLT[0]=\"het\" || BLT[0]=\"homalt\") ' ",
-        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BVT[1]=\"INDEL\" && BD[1]=\"FP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\" ) ' "
+    "SNP_het": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"het\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BLT[0]=\"het\" && BVT[0]=\"SNP\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BLT[0]=\"het\" && BVT[0]=\"SNP\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"SNP\" && BLT[0]=\"het\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"SNP\" && BLT[0]=\"het\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"het\" && BVT[1]=\"SNP\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" && BLT[1]=\"het\" && BLT[0]=\"nocall\" ' "
     },
-    "general_path": {
-        "Sample_Path": "/scratch2/tmp/fakermi",
-        "vcf_hg002_path": "/data/annotations/Human/hg38/references/NA24385_HG002/NISTv4.2.1",
-        "bed_hg002_path": "/data/annotations/Human/hg38/references/NA24385_HG002/NISTv4.2.1",
-        "OUTPUT_PATH": "/scratch2/tmp/fakermi/pipeline_validation_happy/data",
-        "INPUT_PATH": "/scratch2/tmp/fakermi/pipeline_validation_happy",
-        "Fasta_Path": "/data/annotations/Human/GRCh38/index/sorted_primary_assemblies",
-        "base_bam": "/scratch3/spim-preprod/pipeline_trio_wgs/data",
-        "old_pipelines": [
-            "/scratch2/tmp/fakermi/pipeline_v3.2.0.csv",
-            "/scratch2/tmp/fakermi/pipeline_v3.2.1.csv",
-            "/scratch2/tmp/fakermi/pipeline_v3.2.2.csv",
-            "/scratch2/tmp/fakermi/pipeline_v3.3.0.csv",
-            "/scratch2/tmp/fakermi/pipeline_v3.3.1.csv"
-        ],
-        "BED_Path": "/data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2",
-        "REFERENCE_VCF_Path": "/data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2",
-        "sv_query_path": "/scratch2/tmp/vsaillour/tmp/20220704_wittyer_test/A00666_0012_WGS_MR_FS00505001_index_21042022",
-        "SNAKEMAKE_RULES": "/scratch2/tmp/fakermi/pipeline_validation_happy/Rules"
+    "INDEL_homalt": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"homalt\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\" && BLT[0]=\"homalt\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"homalt\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" && BLT[0]=\"homalt\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"homalt\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"homalt\" && BVT[1]=\"INDEL\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"homalt\" && BLT[0]=\"nocall\"  ' "
     },
-    "Variant_Scores": {
-        "Scores": [
-            "TP",
-            "FN",
-            "FP",
-            "FNP",
-            "FNT",
-            "FPP",
-            "FPT"
-        ],
-        "Variant": [
-            "SNP_INDEL_ALL",
-            "SNP_INDEL_het",
-            "SNP_INDEL_homalt",
-            "SNP_INDEL_hetalt",
-            "SNP_INDEL_het_homalt",
-            "SNP_ALL",
-            "SNP_het",
-            "SNP_homalt",
-            "SNP_hetalt",
-            "SNP_het_homalt",
-            "INDEL_ALL",
-            "INDEL_het",
-            "INDEL_homalt",
-            "INDEL_hetalt",
-            "INDEL_het_homalt"
-        ]
+    "SNP_INDEL_ALL": {
+        "FP": "-i ' BD[1]=\"FP\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BLT[0]=\"nocall\" ' "
     },
-    "SNP_INDEL_het_homalt": {
-        "FPP": "-i ' BD[1]=\"FP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") && BLT[0]=\"nocall\" ' ",
-        "FN": "-i ' BD[0]=\"FN\" && (BLT[0]=\"het\" || BLT[0]=\"homalt\") ' ",
-        "FNT": "-i ' BD[0]=\"FN\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
-        "TP": "-i ' BD[0]=\"TP\" && (BLT[0]=\"homalt\" || BLT[0]=\"het\") ' ",
-        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && (BLT[0]=\"het\" || BLT[0]=\"homalt\") ' ",
-        "FP": "-i ' BD[1]=\"FP\" && (BLT[1]=\"het\" || BLT[1]=\"homalt\") ' ",
-        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && (BLT[1]=\"het\"|| BLT[1]=\"homalt\" ) ' "
+    "INDEL_het": {
+        "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"het\" ' ",
+        "FNP": "-i ' BD[0]=\"FN\" && BLT[1]=\"nocall\" && BVT[0]=\"INDEL\" && BLT[0]=\"het\" ' ",
+        "FN": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"het\" ' ",
+        "TP": "-i ' BD[0]=\"TP\" && BVT[0]=\"INDEL\" && BLT[0]=\"het\" ' ",
+        "FNT": "-i ' BD[0]=\"FN\" && BVT[0]=\"INDEL\" && BLT[0]=\"het\" && BD[1]=\"FP\" && BLT[1]!=\"nocall\" ' ",
+        "FPT": "-i ' BD[0]=\"FN\" && BLT[0]!=\"nocall\" && BD[1]=\"FP\" && BLT[1]=\"het\" && BVT[1]=\"INDEL\" ' ",
+        "FPP": "-i ' BD[1]=\"FP\" && BVT[1]=\"INDEL\" && BLT[1]=\"het\" && BLT[0]=\"nocall\" ' "
     },
-    "S3": {
-        "USER": "spim-dev",
-        "Bucket_name": "spim-dev-validation",
-        "IP": "/data/snakemake/spim-dev/boto/endpoint.json"
+    "scripts": {
+        "hapy_S3_csv": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/csv_hapy_to_s3.py",
+        "extract_script": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/extraction.py",
+        "create_form": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/create_report.py",
+        "hapy_stats_S3": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/hapy_stats_S3.py",
+        "S3_hapy": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/aws_s3_hap.py",
+        "witty_S3_csv": "/scratch2/tmp/fakermi/pipeline_validation_happy/script/witty_to_csv.py"
     }
 }
