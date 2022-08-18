@@ -12,7 +12,7 @@ Ce pipeline permet d'effectuer la validation de detection des variants (SNP,INDE
 python3 argconfig_json.py -h
 ```
 # NB:
---Il ne faut pas spécifier l'extension des fichiers: si on a un fichier Name.vcf.gz on donne uniquement le nom du fichier dans ce cas (Name), de même pour toutes les autres extensions (e.g bam,fa,bed...)
+--Il ne faut pas spécifier l'extension des fichiers: si on a un fichier Name.vcf.gz on donne uniquement le nom du fichier dans ce cas (Name), de même pour toutes les autres extensions (e.g bam,fa,bed...).
 --Il ne faut pas aussi ajouter un "/" à la fin d'un chemin d'accés d'un fichier: si on a un chemin "/path/to/folder/" il faut éliminer le dernier "/" -----> "/path/to/folder"
 Exemple:
 ```
