@@ -1,9 +1,0 @@
-dependencies:
-    - python=2.7
-    - Cython
-    - Scipy
-    - pandas
-    - pybedtools
-    - pysam
-    - bx-python
-

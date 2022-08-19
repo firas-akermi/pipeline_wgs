@@ -252,15 +252,15 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     data_config["witty"]={
         "options": "-em"
     }
-    full_path=base_bam +'/' + prefix_analysis +'/' + suffix_analysis + "/chr_*/*markdup.bam"
-    print(full_path)
-    liste = glob.glob(r'{}'.format(full_path))
-    print(liste)
-    data_config["bam_options"]={
+    if base_bam!=None & prefix_analysis!= None & suffix_analysis != None:
+        full_path=base_bam +'/' + prefix_analysis +'/' + suffix_analysis + "/chr_*/*markdup.bam"
+        liste = glob.glob(r'{}'.format(full_path))
+        data_config["bam_options"]={
         "paths":[i.split('.')[0] for i in liste]
     }
-
-
+    else:
+        data_config["bam_options"]={
+        "paths":[]}
     json_obejct = json.dumps(data_config, indent = 4)
     with open(INPUT_PATH+"/pipeline_config/config.json",'w') as outfile:
         outfile.write(json_obejct)
