@@ -1,7 +1,7 @@
 {
     "__default__": {
-        "name": "Validation pipeline hap.py",
-        "tags": "snakemake,validation, MR, hap.py",
+        "name": "Pipeline Validation_WGS ",
+        "tags": "snakemake,validation, MR",
         "volume_snakemake": "snakemake",
         "volume_home": "home",
         "volume_annotations": "annotations",
