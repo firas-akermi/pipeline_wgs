@@ -13,55 +13,55 @@ python3 argconfig_json.py -h
 ```
 # Arguments obligatoires pour tous les outils
 
-|Arguments obligatoires|Description|
-|:----:|:----:|
-|-i|input path|
-|-o|output path|
-|-s|Rules path|
-|-Enviro|Execution environment|
-|-tool|tool to launch|
-|-ref|reference|
-|-V|version|
-|-R|Run id|
-|-A|Alias|
-|-T|Target|
-|-D|Disease|
-|-S|Sample id|
-|-t|type|
-|-d|date|
-|-an|Full analysis name|
-|-u|S3 user name|-|+|
-|-ip|path to json_ip|-|+|
-|-bn|S3 Bucket name|-|+|
+|Arguments obligatoires|Description|Exemple|
+|:----:|:----:|:----:|
+|-i|input path||
+|-o|output path||
+|-s|Rules path||
+|-Enviro|Execution environment||
+|-tool|tool to launch||
+|-ref|reference||
+|-V|version||
+|-R|Run id||
+|-A|Alias||
+|-T|Target||
+|-D|Disease||
+|-S|Sample id||
+|-t|type||
+|-d|date||
+|-an|Full analysis name||
+|-u|S3 user name||
+|-ip|path to json_ip||
+|-bn|S3 Bucket name||
 
 # Arguments spécifiques à chaque outils
 ## Hap.py
-|Arguments|Description|
-|:----:|:----:|
-|-r|gold standard vcf path|
-|-b|gold standard bed path|
-|-e|vcf sample path|
-|-f|fasta path|
-|-GSF|fasta file name|
-|-GSB|standard bed file name|
-|-GSV|standard vcf file name|
+|Arguments|Description|Exemple|
+|:----:|:----:|:----:|
+|-r|gold standard vcf path||
+|-b|gold standard bed path||
+|-e|vcf sample path||
+|-f|fasta path||
+|-GSF|fasta file name||
+|-GSB|standard bed file name||
+|-GSV|standard vcf file name||
 
 ## Witty.er
-Arguments|Description|
-|:----:|:----:|
-|-pvcfhg002|Standard vcf hg002|
-|-nvcfhg002|standard hg002 VCf file name|
-|-nbedhg002|standard hg002 bed file name|
-|-pbedhg002|standard hg002 bed file path|
-|-query_sv_path|path to  vcf query for witty|
-|-query_sv_name|query vcf name for witty|
+Arguments|Description|Exemple|
+|:----:|:----:|:----:|
+|-pvcfhg002|Standard vcf hg002||
+|-nvcfhg002|standard hg002 VCf file name||
+|-nbedhg002|standard hg002 bed file name||
+|-pbedhg002|standard hg002 bed file path||
+|-query_sv_path|path to  vcf query for witty||
+|-query_sv_name|query vcf name for witty||
 
 ## ClinSV
-Arguments|Description|
-|:----:|:----:|
-|-bam|bam files base directory|
-|-prefix|bam files subdirectory|
-|-suffix|bam files directory|
+Arguments|Description|Exemple|
+|:----:|:----:|:----:|
+|-bam|bam files base directory||
+|-prefix|bam files subdirectory||
+|-suffix|bam files directory||
 
 
 
