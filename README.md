@@ -14,73 +14,40 @@ python3 argconfig_json.py -h
 |Argument|Description|Optionnel|Obligatoire|
 |:----:|:----:|:----:|:----:|
 |-i|input path|-|+|
-|:----:|:----:|:----:|:----:|
 |-o|output path|-|+|
 |-s|Rules path|-|+|
-|:----:|:----:|:----:|:----:|
 |-r|gold standard vcf path|+|-|
-|:----:|:----:|:----:|:----:|
 |-b|gold standard bed path|+|-|
-|:----:|:----:|:----:|:----:|
 |-f|fasta path|-|+|
-|:----:|:----:|:----:|:----:|
 |-e|vcf sample path|+|-|
-|:----:|:----:|:----:|:----:|
 |-ref|reference|-|+|
-|:----:|:----:|:----:|:----:|
 |-V|version|-|+|
-|:----:|:----:|:----:|:----:|
 |-R|Run id|-|+|
-|:----:|:----:|:----:|:----:|
 |-A|Alias|-|+|
-|:----:|:----:|:----:|:----:|
 |-T|Target|-|+|
-|:----:|:----:|:----:|:----:|
 |-D|Disease|-|+|
 |-S|Sample id|-|+|
-|:----:|:----:|:----:|:----:|
 |-t|type|-|+|
-|:----:|:----:|:----:|:----:|
 |-d|date|-|+|
-|:----:|:----:|:----:|:----:|
 |-an|Full analysis name|-|+|
-|:----:|:----:|:----:|:----:|
 |-GSF|Fasta file name|+|-|
-|:----:|:----:|:----:|:----:|
 |-GSB|Bed File name wittyer.er|+|-|
-|:----:|:----:|:----:|:----:|
 |-GSV|VCF Standard file name witty.er|+|-|
-|:----:|:----:|:----:|:----:|
 |-u|S3 user name|-|+|
-|:----:|:----:|:----:|:----:|
 |-ip|path to json_ip|-|+|
-|:----:|:----:|:----:|:----:|
 |-bn|S3 Bucket name|-|+|
-|:----:|:----:|:----:|:----:|
 |-bam|bam files base directory|+|-|
-|:----:|:----:|:----:|:----:|
 |-prefix|bam files subdirectory|+|-|
-|:----:|:----:|:----:|:----:|
 |-suffix|bam files directory|+|-|
-|:----:|:----:|:----:|:----:|
 |-pvcfhg002|Standard vcf hg002|+|-|
-|:----:|:----:|:----:|:----:|
 |-nvcfhg002|standard hg002 VCf file name|+|-|
-|:----:|:----:|:----:|:----:|
 |-nbedhg002|standard hg002 bed file name|+|-|
-|:----:|:----:|:----:|:----:|
 |-pbedhg002|standard hg002 bed file path|+|-|
-|:----:|:----:|:----:|:----:|
 |-query_sv_path|path to  vcf query for witty|+|-|
-|:----:|:----:|:----:|:----:|
 |-query_sv_name|query vcf name for witty|+|-|
-|:----:|:----:|:----:|:----:|
 |-Enviro|Execution environment|-|+|
-|:----:|:----:|:----:|:----:|
 |-suffix|bam files directory|+|-|
-|:----:|:----:|:----:|:----:|
 |-tool|tool to launch|-|+|
-|:----:|:----:|:----:|:----:|
 
 # Remarques:
 
