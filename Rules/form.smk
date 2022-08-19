@@ -3,7 +3,8 @@
 #akermi1996@gmail.com
 rule Mise_en_forme_sous_format_csv:
     input:
-       expand("{output_path}/{analysis}/happy/{variant}/{score}.txt",output_path=output_path, analysis = full_name,variant= variants, score = scores)
+       i1=expand("{output_path}/{analysis}/happy/{variant}/{score}.txt",output_path=output_path, analysis = full_name,variant= variants, score = scores),
+       i2=rules.Comparaison_des_Haplotypes.output
     output:
         "{output_path}/{analysis}/happy/Statistics.csv",
     params:
@@ -11,7 +12,7 @@ rule Mise_en_forme_sous_format_csv:
         s = config["Variant_Scores"]["Scores"],
         v = config["Variant_Scores"]["Variant"]             
     shell:
-        "python3 {params.script} -i {input} -o {output} -s {params.s} -v {params.v}" 
+        "python3 {params.script} -i {input.i1} -o {output} -s {params.s} -v {params.v}" 
        
 
 
