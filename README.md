@@ -46,7 +46,6 @@ python3 argconfig_json.py -h
 |-query_sv_path|path to  vcf query for witty|+|-|
 |-query_sv_name|query vcf name for witty|+|-|
 |-Enviro|Execution environment|-|+|
-|-suffix|bam files directory|+|-|
 |-tool|tool to launch|-|+|
 
 # Remarques:
