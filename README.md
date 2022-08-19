@@ -111,11 +111,15 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 ```
 # Exécution du pipeline(go_docker)
 
-# Mount volume :
+# Mount volumes :
 -scratch2
+
 -scratch3
+
 -irods
+
 -home
+
 -snakemake
 # Image:
 sequoia-docker-tools/snakemake:3.9.0-4
