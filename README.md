@@ -13,7 +13,7 @@ python3 argconfig_json.py -h
 ```
 # Arguments obligatoires pour tous les outils
 
-|Arguments obligatoires|Description|Exemple|
+|Arguments obligatoires|  Description|                  Exemple|
 |:----:|:----:|:----:|
 |-i|input path|/scratch3/spim-preprod/pipeline_validation_wgs|
 |-o|output path|/scratch3/spim-preprod/pipeline_validation_wgs/data|
@@ -36,7 +36,7 @@ python3 argconfig_json.py -h
 
 # Arguments spécifiques à chaque outils
 ## Hap.py
-|Arguments|Description|Exemple|
+|Arguments|   Description|    Exemple|
 |:----:|:----:|:----:|
 |-r|gold standard vcf path|/data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2|
 |-b|gold standard bed path|/data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2|
@@ -47,7 +47,7 @@ python3 argconfig_json.py -h
 |-GSV|standard vcf file name|HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer|
 
 ## Witty.er
-Arguments|Description|Exemple|
+Arguments|   Description|     Exemple|
 |:----:|:----:|:----:|
 |-pvcfhg002|Standard vcf hg002|/data/annotations/Human/hg38/references/NA24385_HG002/NISTv4.2.1|
 |-nvcfhg002|standard hg002 VCf file name|HG002_GRCh38_1_22_v4.2.1_benchmark|
@@ -57,7 +57,7 @@ Arguments|Description|Exemple|
 |-query_sv_name|query vcf name for witty|A00666_0012_WGS_MR_FS00505001_index_21042022_SV-CNV|
 
 ## ClinSV
-Arguments|Description|Exemple|
+Arguments|    Description|      Exemple|
 |:----:|:----:|:----:|
 |-bam|bam files base directory|/scratch3/spim-preprod/pipeline_trio_wgs/data|
 |-prefix|bam files subdirectory|A00666_0012_WGS_MR_FS00505001_21042022|
