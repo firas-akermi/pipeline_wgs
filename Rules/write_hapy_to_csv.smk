@@ -4,7 +4,8 @@
 rule write_hapy_to_csv:
     input:
         i1= expand("{output_path}/{analysis}/happy/{analysis}.summary.csv",output_path=output_path, analysis = full_name),
-        i2=rules.Mise_en_forme_sous_format_csv.output
+        i2=rules.Mise_en_forme_sous_format_csv.output,
+        i3=rules.Comparaison_des_Haplotypes.output
 
     output:
         o =  "{output_path}/{analysis}_happy_csv_done.txt"

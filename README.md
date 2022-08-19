@@ -41,7 +41,7 @@ python3 argconfig_json.py -h
 |-r|gold standard vcf path|/data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2|
 |-b|gold standard bed path|/data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2|
 |-e|vcf sample path|/scratch2/tmp/fakermi|
-|-f|fasta path|data/annotations/Human/GRCh38/index/sorted_primary_assemblies|
+|-f|fasta path|/data/annotations/Human/GRCh38/index/sorted_primary_assemblies|
 |-GSF|fasta file name|GRCh38.92|
 |-GSB|standard bed file name|HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7|
 |-GSV|standard vcf file name|HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer|
@@ -136,7 +136,7 @@ set -o pipefail;
 -k --rerun-incomplete  \
 --configfile [Path to pipeline_config file] \
 --cluster-config [path to cluster config file] \
---cluster 'godjob.py create -n {cluster.name}_13BB0 -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods}  -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
+--cluster 'godjob.py create -n {cluster.name}_[sample_id] -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods}  -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
 -j 40 -w 60 2>&1 | tee [path of log file]/pipeline_validation_wgs.log
 ```
 # S3

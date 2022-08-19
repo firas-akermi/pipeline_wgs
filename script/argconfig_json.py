@@ -13,7 +13,7 @@ import glob
 ############
 def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Path,Fasta_Path,
                 Sample_Path,Reference, Version, Run, Alias, Target, Disease, Sample,
-                 Type, Date, analysis_name,fasta_name,bed_name,ref_vcf_name,user,ip,
+                 Type, Date, analysis_name,fasta_name,bed_name,ref_vcf_name,user,
                  s3_bucket,base_bam,prefix_analysis,suffix_analysis,vcf_hg002_path,vcf_hg002_name,
                  bed_hg002_path,bed_hg002_name,sv_vcf_query_path,sv_vcf_query_name,Env,tool):
     data_config= {}
@@ -91,7 +91,7 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     }
     data_config['S3']={
     "USER":user,
-    "IP":ip,
+    "IP":"/data/snakemake/spim-dev/boto/endpoint.json",
     "Bucket_name":user+'-'+s3_bucket,
     
     }
@@ -288,7 +288,6 @@ if __name__ == '__main__':
     parser.add_argument("-GSB","--Gold_standard_bed",help="Bed File name hg001",type =str,required= False)
     parser.add_argument("-GSV","--Gold_standard_vcf",help="VCF Standard file name hg001",type =str,required= False)
     parser.add_argument("-u","--user",help="S3 user name", type = str, required= True)
-    parser.add_argument("-ip","--endpoint",help="path to json containing ip adresses", type = str, required= False)
     parser.add_argument("-bn","--bucket_name",help="S3 Bucket name", type = str, required= True)
     parser.add_argument("-bam","--bams_base", help="bam file base directory",type = str, required= False)
     parser.add_argument("-prefix","--prefix_analysis",help="bam files prefix", type = str, required= False)
@@ -311,7 +310,7 @@ if __name__ == '__main__':
                 args.reference_vcf_path, args.bed_path, args.reference_fasta_path, 
                 args.sample_path, args.reference,args.Version,args.Run,
                 args.Alias, args.Target, args.Disease, args.Sample, args.Type, args.Date,
-                args.Analysis_name,args.Fasta_reference,args.Gold_standard_bed,args.Gold_standard_vcf,args.user,args.endpoint,
+                args.Analysis_name,args.Fasta_reference,args.Gold_standard_bed,args.Gold_standard_vcf,args.user,
                 args.bucket_name,args.bams_base,args.prefix_analysis,args.suffix_analysis,
                 args.vcfhg002_path,args.vcfhg002_name,args.pbedhg002_path,args.bedhg002_name,args.vcf_query_sv_path,args.vcf_query_sv_name,
                 args.Environnement,args.tools)
