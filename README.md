@@ -1,13 +1,23 @@
 # Pipeline de validation de détection de variant
 
 Ce pipeline permet d'effectuer la validation de detection des variants (SNP,INDEL et SV) en utilisant 3 outils:
- [Hap.py](https://github.com/Illumina/hap.py) pour les SNPs et les INDELs
- [ClinSV](https://github.com/KCCG/ClinSV) et [Wittyer](https://github.com/Illumina/witty.er) pour les SVs.
+
+ [Hap.py](https://github.com/Illumina/hap.py): pour les SNPs et les INDELs
+
+
+ [ClinSV](https://github.com/KCCG/ClinSV) et [Wittyer](https://github.com/Illumina/witty.er): pour les SVs.
 
  Le pipeline lance l'analyse selon l'outil spécifié dans le fichier config:
+
  Le nom de l'outil(tool) doit être mentionné dans le fichier config soit "Hap.py" ou "ClinSV" ou "Witty" pour Witty.er.
+
+# Cloner le Repository:
+```
+git clone https://gitlab-bioinfo.aphp.fr/Seqoia-Diag-Pipelines/pipeline_validation_wgs.git
+```
 ## I. Création du fichier config
  Le script argconfig_json.py permet de créer le fichier json de configuration de pipeline:
+
  La discription des arguments est disponible en entrant la commande suivante:
 ```
 python3 argconfig_json.py -h
@@ -133,9 +143,9 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -snakemake
 
 ### II.2. Images:
-sequoia-docker-tools/snakemake:3.9.0-4
+##### sequoia-docker-tools/snakemake:3.9.0-4
 ##### CPU: 4
-##### AM: 5
+##### RAM: 5
 
 ### II.3. Commande:
 Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés 
