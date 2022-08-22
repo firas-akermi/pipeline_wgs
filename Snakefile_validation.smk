@@ -48,6 +48,7 @@ include: rulePath + '/indexing_hap.py_output.smk',
 include: rulePath + '/variant_all.smk',
 include: rulePath + '/grep.smk',
 include: rulePath + '/form.smk',
+include: rulePath + '/report.smk',
 include: rulePath + "/stats_hapy_to_s3.smk",
 include: rulePath + '/write_hapy_to_csv.smk',
 include: rulePath + '/compression_happy.smk',
@@ -74,6 +75,7 @@ hapy_index=expand("{output_path}/{analysis}/happy/{analysis}.vcf.gz.tbi",output_
 vcf_all = expand("{output_path}/{analysis}/happy/{variant}/{score}.vcf", output_path=output_path, analysis = full_name,variant= variants, score = scores)
 grep = expand("{output_path}/{analysis}/happy/{variant}/{score}.txt", output_path=output_path, analysis = full_name,variant= variants, score = scores)
 form = expand("{output_path}/{analysis}/happy/Statistics.csv",output_path=output_path, analysis = full_name)
+rapport = expand("{output_path}/{analysis}/happy/Rapport.html",output_path=output_path, analysis = full_name)
 s3_stats=expand("{output_path}/{analysis}_hapy_stats_done.txt",output_path=output_path, analysis = full_name)
 csv_s3 = expand("{output_path}/{analysis}_happy_csv_done.txt",output_path=output_path, analysis = full_name)
 compress_hapy = expand("{output_path}/{analysis}/happy.tar.gz",output_path=output_path, analysis = full_name)
@@ -102,6 +104,7 @@ if tool =='Hap.py':
             #hapy,
             #vcf_all,
             #form,
+            #rapport
             #csv_s3,
             #compress_hapy,
             s3_hapy

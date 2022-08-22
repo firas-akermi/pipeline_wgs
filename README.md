@@ -66,7 +66,7 @@ Arguments|    Description|      Exemple|
 
 
 
-# Remarques:
+# I.5. Remarques:
 
  Il ne faut pas spécifier les extensions des fichiers: Si on a un fichier Name.vcf.gz on donne uniquement le nom du fichier dans ce cas (Name), de même pour toutes les autres extensions (e.g bam,fa,bed...). 
 
@@ -74,13 +74,16 @@ Arguments|    Description|      Exemple|
  Il ne faut pas aussi ajouter un "/" à la fin d'un chemin d'accés d'un fichier: si on a un chemin "/path/to/folder/" il faut éliminer le dernier "/" -----> "/path/to/folder"
 
 
-# Exemple de création du fichier config:
+# I.6. Exemple de création du fichier config:
 Ouvrir [Godocker]()
 
 Copier la commande ci-dessous en modifiant les arguments en fonction de l'analyse souhaitée.
 
-Sélectionner une image docker : 
-Sélectionner les volumes: 
+Sélectionner une image docker : sequoia-docker-tools/snakemake:3.9.0-4
+
+Sélectionner les volumes: snakemake, scratch2, scratch3, home
+
+Cliquer "Submit"
 
 ```
 #!/bin/bash
@@ -116,9 +119,9 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -Enviro [Calculation environment] \
 -tool [tool to run: Hap.py, ClinSV or Witty]
 ```
-# Exécution du pipeline(go_docker)
+# II. Exécution du pipeline(go_docker)
 
-# Mount volumes :
+# II.1. Mount volumes :
 -scratch2
 
 -scratch3
@@ -128,12 +131,14 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -home
 
 -snakemake
-# Image:
-sequoia-docker-tools/snakemake:3.9.0-4
-# CPU: 4
-# RAM: 5
 
-# Commande:
+# II.2. Images:
+sequoia-docker-tools/snakemake:3.9.0-4
+CPU: 4
+RAM: 5
+
+# II.3. Commande:
+Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés 
 ```
 #!/bin/bash
 
@@ -146,7 +151,7 @@ set -o pipefail;
 --cluster 'godjob.py create -n {cluster.name}_[sample_id] -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods}  -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
 -j 40 -w 60 2>&1 | tee [path of log file]/pipeline_validation_wgs.log
 ```
-# S3
+# II.4. AWS_S3
 
  Le pipeline permet la compression et le stockage des résultats sur aws_S3,après chaque analyse. Pour cela la [configuration](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-configure-files.html) de S3 doit être spécifiée sous :
 ```
