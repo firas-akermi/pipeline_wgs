@@ -191,7 +191,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 ###### RAM: 5
 
 ### II.2. Commande:
-Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés 
+Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés "[]"
 ```
 #!/bin/bashset -o pipefail;
 /data/snakemake/miniconda3/envs/snakemake/bin/snakemake \
