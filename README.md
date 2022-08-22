@@ -93,7 +93,7 @@ Sélectionner une image docker : sequoia-docker-tools/snakemake:3.9.0-4
 
 Sélectionner les volumes: snakemake, scratch2, scratch3, home
 
-Cliquer "Submit"
+##### Cliquer "Submit"
 
 ```
 #!/bin/bash
@@ -132,15 +132,15 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 ## II. Exécution du pipeline(go_docker)
 
 ### II.1. Mount volumes :
--scratch2
+##### scratch2
 
--scratch3
+##### scratch3
 
--irods
+##### irods
 
--home
+##### home
 
--snakemake
+##### snakemake
 
 ### II.2. Images:
 ##### sequoia-docker-tools/snakemake:3.9.0-4
