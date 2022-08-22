@@ -149,16 +149,14 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 ### II.3. Commande:
 Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés 
 ```
-#!/bin/bash
-
-set -o pipefail;
+#!/bin/bashset -o pipefail;
 /data/snakemake/miniconda3/envs/snakemake/bin/snakemake \
--s [Path to snakefile] \
--k --rerun-incomplete  \
---configfile [Path to pipeline_config file] \
---cluster-config [path to cluster config file] \
---cluster 'godjob.py create -n {cluster.name}_[sample_id] -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods}  -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
--j 40 -w 60 2>&1 | tee [path of log file]/pipeline_validation_wgs.log
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Snakefile_validation.smk \
+-k --rerun-incomplete \
+--configfile /scratch3/spim-preprod/pipeline_validation_wgs/pipeline_config/config.json \
+--cluster-config /scratch3/spim-preprod/pipeline_validation_wgs/cluster_config/cluster_config.json \
+--cluster 'godjob.py create -n {cluster.name}_[Sample id] -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods} -v {cluster.volume_scratch3} -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
+-j 40 -w 60 2>&1 | tee /scratch3/spim-preprod/pipeline_validation_wgs/log/[Full analysis name].log
 ```
 ### II.4. AWS_S3
 
