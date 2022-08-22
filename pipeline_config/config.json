@@ -113,8 +113,8 @@
         "FP": "-i ' BD[1]=\"FP\" && BVT[1]=\"SNP\" ' "
     },
     "S3": {
-        "Bucket_name": "spim-preprod-validation",
-        "USER": "spim-preprod",
+        "Bucket_name": "spim-dev-validation",
+        "USER": "spim-dev",
         "IP": "/data/snakemake/spim-dev/boto/endpoint.json"
     },
     "general_path": {

@@ -30,7 +30,7 @@ python3 argconfig_json.py -h
 |-o|output path|/scratch3/spim-preprod/pipeline_validation_wgs/data|
 |-s|Rules path|/scratch3/spim-preprod/pipeline_validation_wgs/Rules|
 |-Enviro|Execution environment|scratch3|
-|-tool|tool to launch|Hap.py|
+|-tool|tool to launch|Hap.py or Witty or ClinSV|
 |-ref|reference|NA12878|
 |-V|version|3.3.1|
 |-R|Run id|A00666|
@@ -87,66 +87,118 @@ Arguments|    Description|      Exemple|
 Ouvrir [Godocker]()
 
 Copier la commande ci-dessous en modifiant les arguments en fonction de l'analyse souhaitée.
+Choisir les paramètres suivants:
 
-Sélectionner une image docker : sequoia-docker-tools/snakemake:3.9.0-4
-
-Sélectionner les volumes: snakemake, scratch2, scratch3, home
+###### Contairner image: sequoia-docker-tools/snakemake:3.9.0-4
+###### Mount  volumes: snakemake, scratch2, scratch3, home
+###### CPU et RAM : Valeurs Par défaut
 
 ##### Cliquer "Submit"
+
+#### - Pour Hap.py:
+```
+#!/bin/bash
+
+python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py \
+-i /scratch3/spim-preprod/pipeline_validation_wgs \
+-o /scratch3/spim-preprod/pipeline_validation_wgs/data \
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Rules \
+-Enviro scratch3 \
+-tool Hap.py \
+-ref NA12878 \
+-V 3.3.1 \
+-R A00666 \
+-A 0012 \
+-T WGS \
+-D MR \
+-S FS00505001 \
+-t index \
+-d 22/08/2022 \
+-an A00666_0012_WGS_MR_FS00505001_index_21042022_final \
+-u spim-preprod \
+-bn validation  \
+-r /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
+-b /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
+-e /scratch2/tmp/shared_files_tmp/spim \
+-f /data/annotations/Human/GRCh38/index/sorted_primary_assemblies \
+-GSF GRCh38.92 \
+-GSB HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
+```
+#### - Pour witty.er:
 
 ```
 #!/bin/bash
 
 python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py \
 -i /scratch3/spim-preprod/pipeline_validation_wgs \
--o /scratch3/spim-preprod/pipeline_validation_wgs/data \ 
--s /scratch3/spim-preprod/pipeline_validation_wgs/Rules\ 
--r /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
--b /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
--f /data/annotations/Human/GRCh38/index/sorted_primary_assemblies \
--e [Sample VCF path for hap.py analysis] \
--ref [Reference name e.g NA12878] \
--V [ Variant calling pipeline verssion e.g 3.0.0] \
--R [Run Id] -A [ALIAS] -T [Target e.g WGS] \
--D [ Disease e.g MR] -S [Analysed sample id] \
--t [Type e.g index] \
--d [  Analysis date e.g 01/01/2022] \
--an [analysis full name] -GSF GRCh38.92 \
--GSB HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
--GSV HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer \
--u [user_s3] \
--ip /data/snakemake/spim-dev/boto/endpoint.json \
--bn validation -n A00666_0012_WGS_MR_FS00505001_index_21042022_final.tar.gz \
--bam /scratch3/spim-preprod/pipeline_trio_wgs/data \
--prefix A00666_0012_WGS_MR_FS00505001_21042022 \
--suffix FS00505001_S6 -pvcfhg002 /data/annotations/Human/hg19/references/NA24385_HG002/NIST_SV_v0.6 \
--nvcfhg002 HG002_SVs_Tier1_v0.6 \
--nbedhg002 HG002_SVs_Tier1_v0.6 \
--pbedhg002 /data/annotations/Human/hg19/references/NA24385_HG002/NIST_SV_v0.6 \
+-o /scratch3/spim-preprod/pipeline_validation_wgs/data \
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Rules \
+-Enviro scratch3 \
+-tool Witty \
+-ref NA12878 \
+-V 3.3.1 \
+-R A00666 \
+-A 0012 \
+-T WGS \
+-D MR \
+-S FS00505001 \
+-t index \
+-d 22/08/2022 \
+-an A00666_0012_WGS_MR_FS00505001_index_21042022_final \
+-u spim-preprod \
+-bn validation  \
+-pvcfhg002 /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
+-nvcfhg002 HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer \
+-nbedhg002 HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
+-pbedhg002 /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
 -query_sv_path [path to vcf query for witty] \
 -query_sv_name [query vcf name for witty] \
--Enviro [Calculation environment] \
--tool [tool to run: Hap.py, ClinSV or Witty]
+
 ```
-## II. Exécution du pipeline(go_docker)
+#### - Pour ClinSV:
 
-### II.1. Mount volumes :
+```
+#!/bin/bash
+python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py \
+-i /scratch3/spim-preprod/pipeline_validation_wgs \
+-o /scratch3/spim-preprod/pipeline_validation_wgs/data \
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Rules \
+-Enviro scratch3 \
+-tool ClinSV \
+-ref NA12878 \
+-V 3.3.1 \
+-R A00666 \
+-A 0012 \
+-T WGS \
+-D MR \
+-S FS00505001 \
+-t index \
+-d 22/08/2022 \
+-an A00666_0012_WGS_MR_FS00505001_index_21042022_final \
+-u spim-preprod \
+-bn validation  \
+-bam /scratch3/spim-preprod/pipeline_trio_wgs/data \
+-prefix A00666_0012_WGS_MR_FS00505001_21042022 \
+-suffix FS00505001_S6 \
+
+```
+## II. Exécution du pipeline
+
+### II.1. Paramètres Go_docker
+
+#### Mount volumes :
 ##### scratch2
-
 ##### scratch3
-
 ##### irods
-
+##### annotations
 ##### home
-
 ##### snakemake
 
-### II.2. Images:
-##### sequoia-docker-tools/snakemake:3.9.0-4
-##### CPU: 4
-##### RAM: 5
+#### Container Image: sequoia-docker-tools/snakemake:3.9.0-4
+#### CPU: 4
+#### RAM: 5
 
-### II.3. Commande:
+### II.2. Commande:
 Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés 
 ```
 #!/bin/bashset -o pipefail;
@@ -158,7 +210,7 @@ Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre
 --cluster 'godjob.py create -n {cluster.name}_[Sample id] -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods} -v {cluster.volume_scratch3} -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
 -j 40 -w 60 2>&1 | tee /scratch3/spim-preprod/pipeline_validation_wgs/log/[Full analysis name].log
 ```
-### II.4. AWS_S3
+### II.3. AWS_S3
 
  Le pipeline permet la compression et le stockage des résultats sur aws_S3,après chaque analyse. Pour cela la [configuration](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-configure-files.html) de S3 doit être spécifiée sous :
 ```
