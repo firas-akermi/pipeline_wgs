@@ -1,4 +1,4 @@
-# Pipeline de validation de détection de variant
+# Pipeline de validation de détection des variants
 
 Ce pipeline permet d'effectuer la validation de detection des variants (SNP,INDEL et SV) en utilisant 3 outils:
 
