@@ -86,16 +86,14 @@ Arguments|    Description|      Exemple|
 ### I.6. Exemple de création du fichier config:
 Ouvrir [Godocker]()
 
-Copier la commande ci-dessous en modifiant les arguments en fonction de l'analyse souhaitée.
+Copier la commande ci-dessous en modifiant les arguments en fonction des chemins de fichiers.
 Choisir les paramètres suivants:
 
 ###### Contairner image: sequoia-docker-tools/snakemake:3.9.0-4
 ###### Mount  volumes: snakemake, scratch2, scratch3, home
 ###### CPU et RAM : Valeurs Par défaut
 
-##### Cliquer "Submit"
-
-#### - Pour Hap.py:
+#### * Pour Hap.py:
 ```
 #!/bin/bash
 
@@ -124,7 +122,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -GSF GRCh38.92 \
 -GSB HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
 ```
-#### - Pour witty.er:
+#### * Pour witty.er:
 
 ```
 #!/bin/bash
@@ -155,7 +153,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -query_sv_name [query vcf name for witty] \
 
 ```
-#### - Pour ClinSV:
+#### * Pour ClinSV:
 
 ```
 #!/bin/bash
@@ -182,18 +180,12 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -suffix FS00505001_S6 \
 
 ```
+##### Cliquer "Submit"
 ## II. Exécution du pipeline
 
 ### II.1. Paramètres Go_docker
 
-#### Mount volumes :
-##### scratch2
-##### scratch3
-##### irods
-##### annotations
-##### home
-##### snakemake
-
+#### Mount volumes : scratch2,scratch3,irods,annotations,home,snakemake
 #### Container Image: sequoia-docker-tools/snakemake:3.9.0-4
 #### CPU: 4
 #### RAM: 5
