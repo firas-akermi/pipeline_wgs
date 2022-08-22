@@ -42,7 +42,6 @@ python3 argconfig_json.py -h
 |-d|date|21/04/2022|
 |-an|Full analysis name|A00666_0012_WGS_MR_FS00505001_index_21042022_final|
 |-u|S3 user name|spim-dev|
-|-ip|path to json_ip|/data/snakemake/spim-dev/boto/endpoint.json|
 |-bn|S3 Bucket name|validation|
 
 ### I.2. Arguments spécifiques à Hap.py
