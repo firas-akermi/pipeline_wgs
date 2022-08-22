@@ -185,10 +185,10 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 
 ### II.1. Paramètres Go_docker
 
-#### Mount volumes : scratch2,scratch3,irods,annotations,home,snakemake
-#### Container Image: sequoia-docker-tools/snakemake:3.9.0-4
-#### CPU: 4
-#### RAM: 5
+###### Mount volumes : scratch2,scratch3,irods,annotations,home,snakemake
+###### Container Image: sequoia-docker-tools/snakemake:3.9.0-4
+###### CPU: 4
+###### RAM: 5
 
 ### II.2. Commande:
 Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés 
