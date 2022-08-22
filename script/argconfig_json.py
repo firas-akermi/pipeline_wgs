@@ -252,7 +252,7 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     data_config["witty"]={
         "options": "-em"
     }
-    if base_bam!=None & prefix_analysis!= None & suffix_analysis != None:
+    if base_bam!=None and prefix_analysis!= None and suffix_analysis != None:
         full_path=base_bam +'/' + prefix_analysis +'/' + suffix_analysis + "/chr_*/*markdup.bam"
         liste = glob.glob(r'{}'.format(full_path))
         data_config["bam_options"]={
