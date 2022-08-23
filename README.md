@@ -5,14 +5,21 @@ Ce pipeline de validation de détection de variants permet de mesurer la sensibi
 
 Les mesures de sensibilité et de précision sont possibles grâce à une comparaison de deux listes de variants.
 Les variants provenant d’une expérience SeqOIA (QUERY) sont comparés à une liste de variants de référence (TRUTH). Cette comparaison permet de distribuer les variants de l’expérience essentiellement en trois catégories :
+
     • VP : Vrais Positifs (variants détectés dans l’expérience et également présents dans le VCF de référence) ,
+
     • FN : Faux Négatifs (variants NON détectés dans l’expérience alors qu’ils sont présents dans le VCF de référence) ,
+
     • FP : Faux Positifs (variants détectés dans l’expérience alors qu’ils sont absents dans le VCF de référence).
 
 Trois méthodes sont intégrées au pipeline de validation :
+
     • L’utilitaire [Hap.py](https://github.com/Illumina/hap.py), Illumina qui est dédié aux calculs de sensibilité et de précision des SNPs et les DELINS (<50bp)
+
     • L’utilitaire [Witty.er](https://github.com/Illumina/witty.er), Illumina qui est dédié aux calculs de sensibilité et de précision des Svs
+
     • L’utilitaire [ClinSV](https://github.com/KCCG/ClinSV).
+    
 
 Le pipeline de validation de détection de variants est accessible depuis scratch3, sous /scratch3/spim-preprod/pipeline_validation_wgs/
 
@@ -46,7 +53,9 @@ Le fichier de configuration permet de décrire, notamment,  la méthode de compa
 
 
 La ligne de commande du script argconfig_json.py prends en compte un ensemble de paramètres :
-    • une liste d’arguments obligatoires pour tous les outils, complétée par 
+
+    • une liste d’arguments obligatoires pour tous les outils
+
     • une liste spécifique de la méthode de comparaison de variants choisie (Hap.py, Witty.er, ou ClinSV).
 ### Arguments obligatoires pour tous les outils
 
@@ -103,17 +112,16 @@ Arguments|    Description|      Exemple|
 
 ### Remarques:
 
-    1. à propos des valeurs spécifiques des noms de fichiers : les extensions des fichiers ne doivent pas être précisées (e.g : .vcf.gz, .bam, .fa, .bed, ...)
-    Par exemple, pour mentionner le fichier name.vcf.gz dans le fichier de configuration, la valeur name est utilisée (l’extension .vcf.gz est volontairement omise).
-    2. à propos des valeurs spécifiques des chemins de dossiers : le dernier dossier du chemin ne doit pas être suivi du « / ».
-    Par exemple, pour mentionner le chemin « /path/to/folder/ » la valeur du paramètre est à décrire selon  « /path/to/folder »
+1. à propos des valeurs spécifiques des noms de fichiers : les extensions des fichiers ne doivent pas être précisées (e.g : .vcf.gz, .bam, .fa, .bed, ...). Par exemple, pour mentionner le fichier name.vcf.gz dans le fichier de configuration, la valeur name est utilisée (l’extension .vcf.gz est volontairement omise).
+2. à propos des valeurs spécifiques des chemins de dossiers : le dernier dossier du chemin ne doit pas être suivi du « / ».
+Par exemple, pour mentionner le chemin « /path/to/folder/ » la valeur du paramètre est à décrire selon  « /path/to/folder »
 
 
 # Exemples de lignes de commande
 
-    1. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Hap.py
-    2. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Witty.er
-    3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
+1. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Hap.py
+2. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Witty.er
+3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
 
 ## Procédure:
     1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe xxx
