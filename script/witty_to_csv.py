@@ -4,7 +4,10 @@ import json
 import pandas as pd
 import argparse
 import boto3
-def from_json_to_csv(input_file,output_file,version,env,date,ref,tool):
+def from_json_to_csv(input_file,output_file,version,env,date,ref,tool,cluster):
+    f = open(cluster)
+    f = json.load(f)
+    tool_version=f["witty"]["image"].split(":")[1]
     with open(input_file, 'r') as file:
         data=file.read()
     obj = json.loads(data)
@@ -74,7 +77,7 @@ def from_json_to_csv(input_file,output_file,version,env,date,ref,tool):
     df_base['Environnement']=list((env,) * len(df_base['Categorie'].values))
     df_base['Date']=list((date,) * len(df_base['Categorie'].values))
     df_base['Reference']=list((ref,) * len(df_base['Categorie'].values))
-    df_base['Outils']=list((tool,) * len(df_base['Categorie'].values))
+    df_base['Outils']=list((tool+":"+tool_version,) * len(df_base['Categorie'].values))
     df_base.reset_index(inplace=True)
     df_base.drop(['index'],axis=1,inplace=True)
     df_event.to_csv(output_file,index=False)
@@ -126,9 +129,11 @@ if __name__ == '__main__':
         parser.add_argument("-n","--file_name", type = str, required= True)
         parser.add_argument("-f2","--file_path2", type = str, required= True)
         parser.add_argument("-n2","--file_name2", type = str, required= True)
+        parser.add_argument("-c","--cluster", type = str, required= True)
+ 
         args = parser.parse_args()
         from_json_to_csv(args.input,args.output,args.version,
-                        args.env,args.date,args.ref,args.tool)
+                        args.env,args.date,args.ref,args.tool,args.cluster)
         download(user= args.user,ip_file=args.endpoint,file_path2=args.file_path2,
                         bucket_name=args.bucket_name,file_name2=args.file_name2)
         upload(user= args.user,ip_file=args.endpoint,file_path=args.file_path,
