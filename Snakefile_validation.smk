@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 workdir: config["general_path"]["OUTPUT_PATH"]+'/'+config["general_information"]["Full_name"]
 import csv
 import re

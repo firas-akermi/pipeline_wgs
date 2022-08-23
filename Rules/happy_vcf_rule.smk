@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 rule Comparaison_des_Haplotypes:
        input:
             VCF_Query = expand("{output_path}/{analysis}/{analysis}.vcf.gz", output_path=output_path,  analysis=full_name), 

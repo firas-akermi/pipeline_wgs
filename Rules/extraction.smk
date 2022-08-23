@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 rule info_extraction:
     input:
         VCF_hapy = expand("{input_path}/output/{sample}_hapy.vcf.gz",input_path=input_path,sample=full_name),

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 rule clinsv_annotate:
     input:
         bam = "{output_path}/{analysis}/CNV/{analysis}_merged.bam",
