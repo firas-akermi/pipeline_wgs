@@ -19,7 +19,7 @@ Trois méthodes sont intégrées au pipeline de validation :
     • L’utilitaire [Witty.er](https://github.com/Illumina/witty.er), Illumina qui est dédié aux calculs de sensibilité et de précision des Svs
 
     • L’utilitaire [ClinSV](https://github.com/KCCG/ClinSV).
-    
+
 
 Le pipeline de validation de détection de variants est accessible depuis scratch3, sous /scratch3/spim-preprod/pipeline_validation_wgs/
 
@@ -117,7 +117,7 @@ Arguments|    Description|      Exemple|
 Par exemple, pour mentionner le chemin « /path/to/folder/ » la valeur du paramètre est à décrire selon  « /path/to/folder »
 
 
-# Exemples de lignes de commande
+# Exemples de ligne de commande
 
 1. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Hap.py
 2. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Witty.er
@@ -257,3 +257,5 @@ Les résultats peuvent être visualisés via un [tableau de bord interactif](htt
 [Witty.er](https://github.com/Illumina/witty.er) 
 
 [ClinSV](https://github.com/KCCG/ClinSV)
+
+Minoche AE, Lundie B, Peters GB, Ohnesorg T, Pinese M, Thomas DM, et al. ClinSV: clinical grade structural and copy number variant detection from whole genome sequencing data. Genome Medicine. 2021;13:32.
