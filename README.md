@@ -54,9 +54,7 @@ Le fichier de configuration permet de décrire, notamment,  la méthode de compa
 
 La ligne de commande du script argconfig_json.py prends en compte un ensemble de paramètres :
 
-- une liste d’arguments obligatoires pour tous les outils
-
-- une liste spécifique de la méthode de comparaison de variants choisie (Hap.py, Witty.er, ou ClinSV).
+- une liste d’arguments obligatoires pour tous les outils complétée par une liste spécifique de la méthode de comparaison de variants choisie (Hap.py, Witty.er, ou ClinSV).
 ### Arguments obligatoires pour tous les outils
 
 |Arguments obligatoires|  Description|                  Exemple|
@@ -112,29 +110,14 @@ Arguments|    Description|      Exemple|
 
 ### Remarques:
 
-1. à propos des valeurs spécifiques des noms de fichiers : les extensions des fichiers ne doivent pas être précisées (e.g : .vcf.gz, .bam, .fa, .bed, ...). Par exemple, pour mentionner le fichier name.vcf.gz dans le fichier de configuration, la valeur name est utilisée (l’extension .vcf.gz est volontairement omise).
-2. à propos des valeurs spécifiques des chemins de dossiers : le dernier dossier du chemin ne doit pas être suivi du « / ».
+1. A propos des valeurs spécifiques des noms de fichiers : les extensions des fichiers ne doivent pas être précisées (e.g : .vcf.gz, .bam, .fa, .bed, ...). Par exemple, pour mentionner le fichier name.vcf.gz dans le fichier de configuration, la valeur name est utilisée (l’extension .vcf.gz est volontairement omise).
+2. A propos des valeurs spécifiques des chemins de dossiers : le dernier dossier du chemin ne doit pas être suivi du « / ».
 Par exemple, pour mentionner le chemin « /path/to/folder/ » la valeur du paramètre est à décrire selon  « /path/to/folder »
 
 
 # Exemples de ligne de commande
 
-1. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Hap.py
-2. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Witty.er
-3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
-
-## Procédure:
-1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe xxx
-2. Créer un nouvelle tâche (cliquer sur « Create job »)
-3. Remplir :
-    - **Name** : argconfig_json (nom laissé libre selon la préférence de l’utilisateur)
-    - **Container image** : sequoia-docker-tools/snakemake:3.9.0-4
-    - **Command** : écrire la ligne de commande en s’aidant du tableau de description des arguments obligatoires  et de celui spécifique de la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV) ; les exemples proposés sont également de bons supports.
-    - **CPU requirements** : 4
-    - **RAM requirements** (Gb) : 5
-    - **Mount volumes** : snakemake, scratch2, scratch3, home
-4. Finalement, cliquer sur le bouton "Submit".
-#### 1. Pour Hap.py:
+### 1. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Hap.py
 ```
 #!/bin/bash
 
@@ -163,7 +146,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -GSF GRCh38.92 \
 -GSB HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
 ```
-#### 2. Pour witty.er:
+### 2. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Witty.er
 
 ```
 #!/bin/bash
@@ -194,7 +177,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -query_sv_name [query vcf name for witty] \
 
 ```
-#### 3. Pour ClinSV:
+###  3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
 
 ```
 #!/bin/bash
@@ -219,21 +202,33 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -bam /scratch3/spim-preprod/pipeline_trio_wgs/data \
 -prefix A00666_0012_WGS_MR_FS00505001_21042022 \
 -suffix FS00505001_S6 \
-
 ```
+## Procédure:
+1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe xxx
+2. Créer un nouvelle tâche (cliquer sur « Create job »)
+3. Remplir :
+    - **Name** : argconfig_json (nom laissé libre selon la préférence de l’utilisateur)
+    - **Container image** : sequoia-docker-tools/snakemake:3.9.0-4
+    - **Command** : écrire la ligne de commande en s’aidant du tableau de description des arguments obligatoires  et de celui spécifique de la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV) ; les exemples proposés sont également de bons supports.
+    - **CPU requirements** : 1
+    - **RAM requirements** (Gb) : 1
+    - **Mount volumes** : snakemake, scratch2, scratch3, home
+4. Finalement, cliquer sur le bouton "Submit".
+
 ## Résultats :
 La tâche de création du fichier config.json est terminée avec succès lorsque la section « over jobs » de GO-DOCKER laisse apparaître un statut « over » surlignée en vert ; (la tâche est en échec si la couleur de surbrillance est de couleur noire ; dans ce cas, il y a une erreur dans la ligne de commande).
 
 En complément, le fichier .json de configuration de pipeline a été créé et/ou mis à jour sous /scratch3/spim-preprod/pipeline_validation_wgs/pipeline_config/config.json
 La date de mise à jour et/ou de création du fichier config.json pourrait être vérifiée directement sur le serveur (scratch3).
 
-# Lancement de piepline
+# Lancement de pipeline
 Aprés la création du fichier config, il est poosible de lancer le pipeline par la commande ci-dessous via Go-docker
 
 ## Commande:
 Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés "[]"
 ```
-#!/bin/bashset -o pipefail;
+#!/bin/bash
+set -o pipefail;
 /data/snakemake/miniconda3/envs/snakemake/bin/snakemake \
 -s /scratch3/spim-preprod/pipeline_validation_wgs/Snakefile_validation.smk \
 -k --rerun-incomplete \

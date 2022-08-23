@@ -18,11 +18,11 @@ rule write_hapy_to_csv:
         date=config["general_information"]["Date"],
         ref = config["general_information"]["Reference"],
         tool=config["general_information"]["tool"],
-        n2= lambda wildcards:"{}/{}/happy/data.csv".format(wildcards.output_path,wildcards.analysis)
-
+        n2= lambda wildcards:"{}/{}/happy/data.csv".format(wildcards.output_path,wildcards.analysis),
+        cluster_config=config["general_path"]["INPUT_PATH"]+"/"+"cluster_config/cluster_config.json"
 
     shell:
         '''
         python3 {params.script} -i {params.summary} -o {params.out} -v {params.version} -e {params.env} -d {params.date} -r {params.ref} -u {params.user} -ip {params.adress_ip} \
-        -b {params.Bucket} -t {params.tool} -n data.csv -f {params.out} -f2 data.csv -n2 {params.n2} > {output.o}
+        -b {params.Bucket} -c {params.cluster_config} -t {params.tool} -n data.csv -f {params.out} -f2 data.csv -n2 {params.n2} > {output.o}
         '''

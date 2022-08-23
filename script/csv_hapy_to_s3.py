@@ -4,7 +4,10 @@ import argparse
 import time
 import json
 import pandas as pd
-def formating(input_file,output_file,version,env,date,ref,tool):
+def formating(input_file,output_file,version,env,date,ref,tool,cluster):
+    f = open(cluster)
+    f = json.load(f)
+    tool_version=f["Comparaison_des_Haplotypes"]["image"].split(":")[1]
     data = pd.read_csv(input_file)
     data = data[data['Filter']=='PASS']
     data =data[["Type","TRUTH.TOTAL","TRUTH.TP","TRUTH.FN","QUERY.TOTAL","QUERY.FP",
@@ -13,7 +16,7 @@ def formating(input_file,output_file,version,env,date,ref,tool):
     data['Environnement']=[env,env]
     data['Date']=[date,date]
     data['Reference']=[ref,ref]
-    data['Outils']=[tool,tool]
+    data['Outils']=[tool+":"+tool_version,tool+":"+tool_version]
     data.reset_index(inplace=True)
     data.drop(['index'],axis=1,inplace=True)
     New_name={'Type':'Categorie','TRUTH.TOTAL':'Total.Standard','TRUTH.TP':'VP.Standard','TRUTH.FN':'FN.Standard',
@@ -70,9 +73,11 @@ if __name__ == '__main__':
         parser.add_argument("-n","--file_name", type = str, required= True)
         parser.add_argument("-f2","--file_path2", type = str, required= True)
         parser.add_argument("-n2","--file_name2", type = str, required= True)
+        parser.add_argument("-c","--cluster", type = str, required= False)
+
         args = parser.parse_args()
         formating(args.input,args.output,args.version,
-                        args.env,args.date,args.ref,args.tool)
+                        args.env,args.date,args.ref,args.tool,args.cluster)
         download(user= args.user,ip_file=args.endpoint,file_path2=args.file_path2,
                         bucket_name=args.bucket_name,file_name2=args.file_name2)
         upload(user= args.user,ip_file=args.endpoint,file_path=args.file_path,
