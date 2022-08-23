@@ -6,26 +6,27 @@ Ce pipeline de validation de détection de variants permet de mesurer la sensibi
 Les mesures de sensibilité et de précision sont possibles grâce à une comparaison de deux listes de variants.
 Les variants provenant d’une expérience SeqOIA (QUERY) sont comparés à une liste de variants de référence (TRUTH). Cette comparaison permet de distribuer les variants de l’expérience essentiellement en trois catégories :
 
-    • VP : Vrais Positifs (variants détectés dans l’expérience et également présents dans le VCF de référence) ,
+    * __VP__ : Vrais Positifs (variants détectés dans l’expérience et également présents dans le VCF de référence) ,
 
-    • FN : Faux Négatifs (variants NON détectés dans l’expérience alors qu’ils sont présents dans le VCF de référence) ,
+    * __FN__ : Faux Négatifs (variants NON détectés dans l’expérience alors qu’ils sont présents dans le VCF de référence) ,
 
-    • FP : Faux Positifs (variants détectés dans l’expérience alors qu’ils sont absents dans le VCF de référence).
+    * __FP__ : Faux Positifs (variants détectés dans l’expérience alors qu’ils sont absents dans le VCF de référence).
 
 Trois méthodes sont intégrées au pipeline de validation :
 
-    • L’utilitaire [Hap.py](https://github.com/Illumina/hap.py), Illumina qui est dédié aux calculs de sensibilité et de précision des SNPs et les DELINS (<50bp)
+    * L’utilitaire [Hap.py](https://github.com/Illumina/hap.py), Illumina qui est dédié aux calculs de sensibilité et de précision des SNPs et les DELINS (<50bp)
 
-    • L’utilitaire [Witty.er](https://github.com/Illumina/witty.er), Illumina qui est dédié aux calculs de sensibilité et de précision des Svs
+    * L’utilitaire [Witty.er](https://github.com/Illumina/witty.er), Illumina qui est dédié aux calculs de sensibilité et de précision des Svs
 
-    • L’utilitaire [ClinSV](https://github.com/KCCG/ClinSV).
+    * L’utilitaire [ClinSV](https://github.com/KCCG/ClinSV).
 
 
 Le pipeline de validation de détection de variants est accessible depuis scratch3, sous /scratch3/spim-preprod/pipeline_validation_wgs/
 
 L’exécution pipeline de validation  se découpe en 2 étapes :
-1- Création du fichier config
-2-Lancement du pipeline
+1. Création du fichier config
+2. Lancement du pipeline
+
 # Installation et nom d’utilisateur
 
 Le pipeline de validation de détection de variants est installé sous scratch3, et accessible sous  /scratch3/spim-preprod/pipeline_validation_wgs
@@ -38,6 +39,7 @@ git clone https://gitlab-bioinfo.aphp.fr/Seqoia-Diag-Pipelines/pipeline_validati
 ```
 
 # Les préalables (à l’exécution du pipeline)
+
 ### Connexion à  GO-DOCKER DEV
 
 Ouvrir l’interface web GO-DOCKER DEV à cette [adresse](bio4g-god-dev.bbs.aphp.fr)
@@ -48,7 +50,7 @@ Mot de passe : contacter l’administrateur-système de SeqOIA-IT
 Sous un Terminal,  et en tant qu’utilisateur spim-preprod, naviguer jusqu’au répertoire du pipeline
 
 # Création du fichier config via GO-DOCKER
- L’exécution du script argconfig_json.py permet de créer le fichier .json de configuration de pipeline.
+L’exécution du script argconfig_json.py permet de créer le fichier .json de configuration de pipeline.
 Le fichier de configuration permet de décrire, notamment,  la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV), qui sera à utiliser, dans un second temps, par le pipeline de validation.
 
 
@@ -57,6 +59,7 @@ La ligne de commande du script argconfig_json.py prends en compte un ensemble de
     • une liste d’arguments obligatoires pour tous les outils
 
     • une liste spécifique de la méthode de comparaison de variants choisie (Hap.py, Witty.er, ou ClinSV).
+    
 ### Arguments obligatoires pour tous les outils
 
 |Arguments obligatoires|  Description|                  Exemple|
@@ -124,16 +127,17 @@ Par exemple, pour mentionner le chemin « /path/to/folder/ » la valeur du par
 3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
 
 ## Procédure:
-    1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe xxx
+    1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir Connexion à GO-DOCKER DEV
     2. Créer un nouvelle tâche (cliquer sur « Create job »)
     3. Remplir :
-        • Name : argconfig_json (nom laissé libre selon la préférence de l’utilisateur)
-        • Container image : sequoia-docker-tools/snakemake:3.9.0-4
-        • Command : écrire la ligne de commande en s’aidant du tableau de description des arguments obligatoires  et de celui spécifique de la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV) ; les exemples proposés sont également de bons supports.
-        • CPU requirements : 4
-        • RAM requirements (Gb) : 5
-        • Mount volumes : snakemake, scratch2, scratch3, home
+        * __Name__ : argconfig_json (nom laissé libre selon la préférence de l’utilisateur)
+        * __Container image__ : sequoia-docker-tools/snakemake:3.9.0-4
+        * __Command__ : écrire la ligne de commande en s’aidant du tableau de description des arguments obligatoires  et de celui spécifique de la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV) ; les exemples proposés sont également de bons supports.
+        * __CPU requirements__ : 4
+        * __RAM requirements (Gb)__ : 5
+        * __Mount volumes__ : snakemake, scratch2, scratch3, home
     4. Finalement, cliquer sur le bouton "Submit".
+    
 #### 1. Pour Hap.py:
 ```
 #!/bin/bash
