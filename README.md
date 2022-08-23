@@ -117,11 +117,7 @@ Par exemple, pour mentionner le chemin « /path/to/folder/ » la valeur du par
 
 # Exemples de ligne de commande
 
-1. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Hap.py
-2. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Witty.er
-3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
-
-#### 1. Pour Hap.py:
+### 1. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Hap.py
 ```
 #!/bin/bash
 
@@ -150,7 +146,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -GSF GRCh38.92 \
 -GSB HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
 ```
-#### 2. Pour witty.er:
+### 2. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Witty.er
 
 ```
 #!/bin/bash
@@ -181,7 +177,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -query_sv_name [query vcf name for witty] \
 
 ```
-#### 3. Pour ClinSV:
+###  3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
 
 ```
 #!/bin/bash
@@ -206,7 +202,6 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -bam /scratch3/spim-preprod/pipeline_trio_wgs/data \
 -prefix A00666_0012_WGS_MR_FS00505001_21042022 \
 -suffix FS00505001_S6 \
-
 ```
 ## Procédure:
 1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe xxx
