@@ -127,12 +127,12 @@ Par exemple, pour mentionner le chemin « /path/to/folder/ » la valeur du par
 1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe xxx
 2. Créer un nouvelle tâche (cliquer sur « Create job »)
 3. Remplir :
-    - Name : argconfig_json (nom laissé libre selon la préférence de l’utilisateur)
-    - Container image : sequoia-docker-tools/snakemake:3.9.0-4
-    - Command : écrire la ligne de commande en s’aidant du tableau de description des arguments obligatoires  et de celui spécifique de la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV) ; les exemples proposés sont également de bons supports.
-    - CPU requirements : 4
-    - RAM requirements (Gb) : 5
-    - Mount volumes : snakemake, scratch2, scratch3, home
+    - **Name** : argconfig_json (nom laissé libre selon la préférence de l’utilisateur)
+    - **Container image** : sequoia-docker-tools/snakemake:3.9.0-4
+    - **Command** : écrire la ligne de commande en s’aidant du tableau de description des arguments obligatoires  et de celui spécifique de la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV) ; les exemples proposés sont également de bons supports.
+    - **CPU requirements** : 4
+    - **RAM requirements** (Gb) : 5
+    - **Mount volumes** : snakemake, scratch2, scratch3, home
 4. Finalement, cliquer sur le bouton "Submit".
 #### 1. Pour Hap.py:
 ```
