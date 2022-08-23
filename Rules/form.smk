@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 rule Mise_en_forme_sous_format_csv:
     input:
        i1=expand("{output_path}/{analysis}/happy/{variant}/{score}.txt",output_path=output_path, analysis = full_name,variant= variants, score = scores),

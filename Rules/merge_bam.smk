@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 rule merge_bam:
     input: 
         expand("{bam_file}.bam",bam_file = bam_files)

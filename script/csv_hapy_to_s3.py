@@ -23,7 +23,7 @@ def formating(input_file,output_file,version,env,date,ref,tool):
     data.to_csv(output_file,index=False) 
 
 def download(user,ip_file,file_path2,bucket_name,file_name2):
-        boto3.setup_default_session(profile_name=user)
+        boto3.setup_default_session(profile_name='default')
         with open(ip_file, 'r') as f:
                 data = json.load(f)
         for adress in data["s3"]:
@@ -41,7 +41,7 @@ def upload(user,ip_file,file_path,bucket_name,file_name,file_name2,output_file):
         data= pd.read_csv(file_path)
         csv=pd.concat([df,data],sort=False)
         csv.to_csv(output_file,index=False)
-        boto3.setup_default_session(profile_name=user)
+        boto3.setup_default_session(profile_name='default')
         with open(ip_file, 'r') as f:
                 data = json.load(f)
         for adress in data["s3"]:

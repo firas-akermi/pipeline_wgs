@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 rule witty:
     input:
         vcf_ref= expand('{vcf_hg002_path}/{vcf_file_name}.vcf.gz',vcf_hg002_path=sv_vcf_path,vcf_file_name=sv_vcf_name),

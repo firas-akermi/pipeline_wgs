@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 rule clinsv_lumpy:
     input:
         path = rules.clinsv_bw.output.path,

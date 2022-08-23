@@ -4,7 +4,7 @@ import argparse
 import time
 import json
 def archive(user,ip_file,file_path,bucket_name,file_name,key):
-        boto3.setup_default_session(profile_name=user)
+        boto3.setup_default_session(profile_name="default")
         with open(ip_file, 'r') as f:
                 data = json.load(f)
         for adress in data["s3"]:

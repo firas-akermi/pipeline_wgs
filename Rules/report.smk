@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # Firas Akermi
-#akermi1996@gmail.com
 rule Analyse_des_resultats_et_generation_du_rapport_html:
     input:
         i="{output_path}/{analysis}/happy/Statistics.csv"
