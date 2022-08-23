@@ -40,7 +40,7 @@ git clone https://gitlab-bioinfo.aphp.fr/Seqoia-Diag-Pipelines/pipeline_validati
 # Les préalables (à l’exécution du pipeline)
 ### Connexion à  GO-DOCKER DEV
 
-- Ouvrir l’interface web GO-DOCKER DEV à cette [adresse](bio4g-god-dev.bbs.aphp.fr).
+- Ouvrir l’interface web [GO-DOCKER DEV](bio4g-god-dev.bbs.aphp.fr).
 - Se connecter avec le nom d’utilisateur spim-dev.
 - Mot de passe : contacter l’administrateur-système de SeqOIA-IT.
 
