@@ -1,28 +1,63 @@
 # Pipeline de validation de détection des variants
 
-Ce pipeline permet d'effectuer la validation de detection des variants (SNP,INDEL et SV) en utilisant 3 outils:
+L’évaluation qualitative d’un pipeline d’appel de variants consiste, pour SeqOIA-IT, à évaluer si un pipeline est suffisamment sensible et précis.
+Ce pipeline de validation de détection de variants permet de mesurer la sensibilité et la précision d’une version de pipeline données (MR).
 
- [Hap.py](https://github.com/Illumina/hap.py): pour les SNPs et les INDELs
+Les mesures de sensibilité et de précision sont possibles grâce à une comparaison de deux listes de variants.
+Les variants provenant d’une expérience SeqOIA (QUERY) sont comparés à une liste de variants de référence (TRUTH). Cette comparaison permet de distribuer les variants de l’expérience essentiellement en trois catégories :
+
+- **VP** : Vrais Positifs (variants détectés dans l’expérience et également présents dans le VCF de référence) ,
+
+- **FN** : Faux Négatifs (variants NON détectés dans l’expérience alors qu’ils sont présents dans le VCF de référence) ,
+
+- **FP** : Faux Positifs (variants détectés dans l’expérience alors qu’ils sont absents dans le VCF de référence).
+
+Trois méthodes sont intégrées au pipeline de validation :
+
+- L’utilitaire [Hap.py](https://github.com/Illumina/hap.py), Illumina qui est dédié aux calculs de sensibilité et de précision des SNPs et les DELINS (<50bp)
+
+- L’utilitaire [Witty.er](https://github.com/Illumina/witty.er), Illumina qui est dédié aux calculs de sensibilité et de précision des Svs
+
+- L’utilitaire [ClinSV](https://github.com/KCCG/ClinSV).
 
 
- [ClinSV](https://github.com/KCCG/ClinSV) et [Wittyer](https://github.com/Illumina/witty.er): pour les SVs.
+Le pipeline de validation de détection de variants est accessible depuis scratch3, sous /scratch3/spim-preprod/pipeline_validation_wgs/
 
- Le pipeline lance l'analyse selon l'outil spécifié dans le fichier config:
+L’exécution pipeline de validation  se découpe en 2 étapes :
+1. Création du fichier config
+2. Lancement du pipeline
+# Installation et nom d’utilisateur
 
- Le nom de l'outil(tool) doit être mentionné dans le fichier config soit "Hap.py" ou "ClinSV" ou "Witty" pour Witty.er.
+Le pipeline de validation de détection de variants est installé sous scratch3, et accessible sous  /scratch3/spim-preprod/pipeline_validation_wgs
 
-# Cloner le Repository:
+Le nom d’utilisateur qui exécute le pipeline est spim-preprod
+
+Pour cloner le pipeline de validation (sous  scratch3), faire :
 ```
 git clone https://gitlab-bioinfo.aphp.fr/Seqoia-Diag-Pipelines/pipeline_validation_wgs.git
 ```
-## I. Création du fichier config
- Le script argconfig_json.py permet de créer le fichier json de configuration de pipeline:
 
- La discription des arguments est disponible en entrant la commande suivante:
-```
-python3 argconfig_json.py -h
-```
-### I.1. Arguments obligatoires pour tous les outils
+# Les préalables (à l’exécution du pipeline)
+### Connexion à  GO-DOCKER DEV
+
+- Ouvrir l’interface web [GO-DOCKER DEV](bio4g-god-dev.bbs.aphp.fr).
+- Se connecter avec le nom d’utilisateur spim-dev.
+- Mot de passe : contacter l’administrateur-système de SeqOIA-IT.
+
+### Ouverture d’un Terminal sous scratch3
+Sous un Terminal,  et en tant qu’utilisateur spim-preprod, naviguer jusqu’au répertoire du pipeline
+
+# Création du fichier config via GO-DOCKER
+L’exécution du script argconfig_json.py permet de créer le fichier .json de configuration de pipeline.
+Le fichier de configuration permet de décrire, notamment,  la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV), qui sera à utiliser, dans un second temps, par le pipeline de validation.
+
+
+La ligne de commande du script argconfig_json.py prends en compte un ensemble de paramètres :
+
+- une liste d’arguments obligatoires pour tous les outils
+
+- une liste spécifique de la méthode de comparaison de variants choisie (Hap.py, Witty.er, ou ClinSV).
+### Arguments obligatoires pour tous les outils
 
 |Arguments obligatoires|  Description|                  Exemple|
 |:----:|:----:|:----:|
@@ -30,7 +65,7 @@ python3 argconfig_json.py -h
 |-o|output path|/scratch3/spim-preprod/pipeline_validation_wgs/data|
 |-s|Rules path|/scratch3/spim-preprod/pipeline_validation_wgs/Rules|
 |-Enviro|Execution environment|scratch3|
-|-tool|tool to launch|Hap.py|
+|-tool|tool to launch|Hap.py or Witty or ClinSV|
 |-ref|reference|NA12878|
 |-V|version|3.3.1|
 |-R|Run id|A00666|
@@ -44,7 +79,7 @@ python3 argconfig_json.py -h
 |-u|S3 user name|spim-dev|
 |-bn|S3 Bucket name|validation|
 
-### I.2. Arguments spécifiques à Hap.py
+### Arguments spécifiques à Hap.py
 
 |Arguments|   Description|    Exemple|
 |:----:|:----:|:----:|
@@ -56,7 +91,7 @@ python3 argconfig_json.py -h
 |-GSB|standard bed file name|HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7|
 |-GSV|standard vcf file name|HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer|
 
-### I.3. Arguments spécifiques à Witty.er
+### Arguments spécifiques à Witty.er
 Arguments|   Description|     Exemple|
 |:----:|:----:|:----:|
 |-pvcfhg002|Standard vcf hg002|/data/annotations/Human/hg38/references/NA24385_HG002/NISTv4.2.1|
@@ -66,7 +101,7 @@ Arguments|   Description|     Exemple|
 |-query_sv_path|path to  vcf query for witty|/scratch2/tmp/vsaillour/tmp/20220704_wittyer_test/A00666_0012_WGS_MR_FS00505001_index_21042022|
 |-query_sv_name|query vcf name for witty|A00666_0012_WGS_MR_FS00505001_index_21042022_SV-CNV|
 
-### I.4. Arguments spécifiques à ClinSV
+### Arguments spécifiques à ClinSV
 Arguments|    Description|      Exemple|
 |:----:|:----:|:----:|
 |-bam|bam files base directory|/scratch3/spim-preprod/pipeline_trio_wgs/data|
@@ -75,97 +110,152 @@ Arguments|    Description|      Exemple|
 
 
 
-### I.5. Remarques:
+### Remarques:
 
- Il ne faut pas spécifier les extensions des fichiers: Si on a un fichier Name.vcf.gz on donne uniquement le nom du fichier dans ce cas (Name), de même pour toutes les autres extensions (e.g bam,fa,bed...). 
+1. à propos des valeurs spécifiques des noms de fichiers : les extensions des fichiers ne doivent pas être précisées (e.g : .vcf.gz, .bam, .fa, .bed, ...). Par exemple, pour mentionner le fichier name.vcf.gz dans le fichier de configuration, la valeur name est utilisée (l’extension .vcf.gz est volontairement omise).
+2. à propos des valeurs spécifiques des chemins de dossiers : le dernier dossier du chemin ne doit pas être suivi du « / ».
+Par exemple, pour mentionner le chemin « /path/to/folder/ » la valeur du paramètre est à décrire selon  « /path/to/folder »
 
 
- Il ne faut pas aussi ajouter un "/" à la fin d'un chemin d'accés d'un fichier: si on a un chemin "/path/to/folder/" il faut éliminer le dernier "/" -----> "/path/to/folder"
+# Exemples de ligne de commande
 
+1. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Hap.py
+2. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via Witty.er
+3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
 
-### I.6. Exemple de création du fichier config:
-Ouvrir [Godocker]()
+## Procédure:
+1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe xxx
+2. Créer un nouvelle tâche (cliquer sur « Create job »)
+3. Remplir :
+    - **Name** : argconfig_json (nom laissé libre selon la préférence de l’utilisateur)
+    - **Container image** : sequoia-docker-tools/snakemake:3.9.0-4
+    - **Command** : écrire la ligne de commande en s’aidant du tableau de description des arguments obligatoires  et de celui spécifique de la méthode de comparaison de variants (Hap.py, Witty.er, ou ClinSV) ; les exemples proposés sont également de bons supports.
+    - **CPU requirements** : 4
+    - **RAM requirements** (Gb) : 5
+    - **Mount volumes** : snakemake, scratch2, scratch3, home
+4. Finalement, cliquer sur le bouton "Submit".
+#### 1. Pour Hap.py:
+```
+#!/bin/bash
 
-Copier la commande ci-dessous en modifiant les arguments en fonction de l'analyse souhaitée.
-
-Sélectionner une image docker : sequoia-docker-tools/snakemake:3.9.0-4
-
-Sélectionner les volumes: snakemake, scratch2, scratch3, home
-
-##### Cliquer "Submit"
+python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py \
+-i /scratch3/spim-preprod/pipeline_validation_wgs \
+-o /scratch3/spim-preprod/pipeline_validation_wgs/data \
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Rules \
+-Enviro scratch3 \
+-tool Hap.py \
+-ref NA12878 \
+-V 3.3.1 \
+-R A00666 \
+-A 0012 \
+-T WGS \
+-D MR \
+-S FS00505001 \
+-t index \
+-d 22/08/2022 \
+-an A00666_0012_WGS_MR_FS00505001_index_21042022_final \
+-u spim-preprod \
+-bn validation  \
+-r /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
+-b /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
+-e /scratch2/tmp/shared_files_tmp/spim \
+-f /data/annotations/Human/GRCh38/index/sorted_primary_assemblies \
+-GSF GRCh38.92 \
+-GSB HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
+```
+#### 2. Pour witty.er:
 
 ```
 #!/bin/bash
 
 python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py \
 -i /scratch3/spim-preprod/pipeline_validation_wgs \
--o /scratch3/spim-preprod/pipeline_validation_wgs/data \ 
--s /scratch3/spim-preprod/pipeline_validation_wgs/Rules\ 
--r /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
--b /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
--f /data/annotations/Human/GRCh38/index/sorted_primary_assemblies \
--e [Sample VCF path for hap.py analysis] \
--ref [Reference name e.g NA12878] \
--V [ Variant calling pipeline verssion e.g 3.0.0] \
--R [Run Id] -A [ALIAS] -T [Target e.g WGS] \
--D [ Disease e.g MR] -S [Analysed sample id] \
--t [Type e.g index] \
--d [  Analysis date e.g 01/01/2022] \
--an [analysis full name] -GSF GRCh38.92 \
--GSB HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
--GSV HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer \
--u [user_s3] \
--ip /data/snakemake/spim-dev/boto/endpoint.json \
--bn validation -n A00666_0012_WGS_MR_FS00505001_index_21042022_final.tar.gz \
--bam /scratch3/spim-preprod/pipeline_trio_wgs/data \
--prefix A00666_0012_WGS_MR_FS00505001_21042022 \
--suffix FS00505001_S6 -pvcfhg002 /data/annotations/Human/hg19/references/NA24385_HG002/NIST_SV_v0.6 \
--nvcfhg002 HG002_SVs_Tier1_v0.6 \
--nbedhg002 HG002_SVs_Tier1_v0.6 \
--pbedhg002 /data/annotations/Human/hg19/references/NA24385_HG002/NIST_SV_v0.6 \
+-o /scratch3/spim-preprod/pipeline_validation_wgs/data \
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Rules \
+-Enviro scratch3 \
+-tool Witty \
+-ref NA12878 \
+-V 3.3.1 \
+-R A00666 \
+-A 0012 \
+-T WGS \
+-D MR \
+-S FS00505001 \
+-t index \
+-d 22/08/2022 \
+-an A00666_0012_WGS_MR_FS00505001_index_21042022_final \
+-u spim-preprod \
+-bn validation  \
+-pvcfhg002 /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
+-nvcfhg002 HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer \
+-nbedhg002 HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7 \
+-pbedhg002 /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
 -query_sv_path [path to vcf query for witty] \
 -query_sv_name [query vcf name for witty] \
--Enviro [Calculation environment] \
--tool [tool to run: Hap.py, ClinSV or Witty]
+
 ```
-## II. Exécution du pipeline(go_docker)
+#### 3. Pour ClinSV:
 
-### II.1. Mount volumes :
-##### scratch2
-
-##### scratch3
-
-##### irods
-
-##### home
-
-##### snakemake
-
-### II.2. Images:
-##### sequoia-docker-tools/snakemake:3.9.0-4
-##### CPU: 4
-##### RAM: 5
-
-### II.3. Commande:
-Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés 
 ```
 #!/bin/bash
+python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py \
+-i /scratch3/spim-preprod/pipeline_validation_wgs \
+-o /scratch3/spim-preprod/pipeline_validation_wgs/data \
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Rules \
+-Enviro scratch3 \
+-tool ClinSV \
+-ref NA12878 \
+-V 3.3.1 \
+-R A00666 \
+-A 0012 \
+-T WGS \
+-D MR \
+-S FS00505001 \
+-t index \
+-d 22/08/2022 \
+-an A00666_0012_WGS_MR_FS00505001_index_21042022_final \
+-u spim-preprod \
+-bn validation  \
+-bam /scratch3/spim-preprod/pipeline_trio_wgs/data \
+-prefix A00666_0012_WGS_MR_FS00505001_21042022 \
+-suffix FS00505001_S6 \
 
-set -o pipefail;
-/data/snakemake/miniconda3/envs/snakemake/bin/snakemake \
--s [Path to snakefile] \
--k --rerun-incomplete  \
---configfile [Path to pipeline_config file] \
---cluster-config [path to cluster config file] \
---cluster 'godjob.py create -n {cluster.name}_[sample_id] -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods}  -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
--j 40 -w 60 2>&1 | tee [path of log file]/pipeline_validation_wgs.log
 ```
-### II.4. AWS_S3
+## Résultats :
+La tâche de création du fichier config.json est terminée avec succès lorsque la section « over jobs » de GO-DOCKER laisse apparaître un statut « over » surlignée en vert ; (la tâche est en échec si la couleur de surbrillance est de couleur noire ; dans ce cas, il y a une erreur dans la ligne de commande).
+
+En complément, le fichier .json de configuration de pipeline a été créé et/ou mis à jour sous /scratch3/spim-preprod/pipeline_validation_wgs/pipeline_config/config.json
+La date de mise à jour et/ou de création du fichier config.json pourrait être vérifiée directement sur le serveur (scratch3).
+
+# Lancement de piepline
+Aprés la création du fichier config, il est poosible de lancer le pipeline par la commande ci-dessous via Go-docker
+
+## Commande:
+Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés "[]"
+```
+#!/bin/bashset -o pipefail;
+/data/snakemake/miniconda3/envs/snakemake/bin/snakemake \
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Snakefile_validation.smk \
+-k --rerun-incomplete \
+--configfile /scratch3/spim-preprod/pipeline_validation_wgs/pipeline_config/config.json \
+--cluster-config /scratch3/spim-preprod/pipeline_validation_wgs/cluster_config/cluster_config.json \
+--cluster 'godjob.py create -n {cluster.name}_[Sample id] -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods} -v {cluster.volume_scratch3} -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
+-j 40 -w 60 2>&1 | tee /scratch3/spim-preprod/pipeline_validation_wgs/log/[Full analysis name].log
+```
+# AWS_S3
 
  Le pipeline permet la compression et le stockage des résultats sur aws_S3,après chaque analyse. Pour cela la [configuration](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-configure-files.html) de S3 doit être spécifiée sous :
 ```
 /home/.aws/credentials
 ```
+# Interface
+Les résultats peuvent être visualisés via un [tableau de bord interactif](https://gitlab-bioinfo.aphp.fr/Seqoia-Diag-Pipelines/dashboard_validation).
 
+# Références/Publications
+[Hap.py](https://github.com/Illumina/hap.py)
 
- 
+[Witty.er](https://github.com/Illumina/witty.er) 
+
+[ClinSV](https://github.com/KCCG/ClinSV)
+
+Minoche AE, Lundie B, Peters GB, Ohnesorg T, Pinese M, Thomas DM, et al. ClinSV: clinical grade structural and copy number variant detection from whole genome sequencing data. Genome Medicine. 2021;13:32.

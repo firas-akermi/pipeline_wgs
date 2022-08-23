@@ -57,5 +57,7 @@ if __name__ == '__main__':
     parser.add_argument("-s","--Sample", type =str,required= True)
     parser.add_argument("-d","--Date", type =str,required= True)
     parser.add_argument("-o","--output_path", type =str, required= True)
+    parser.add_argument("-v","--version", type =str, required= True)
+
     args = parser.parse_args()
-    create_report(args.first_input_path,args.second_input_path,args.Sample,args.Date,args.Version,args.output_path)
+    create_report(args.first_input_path,args.second_input_path,args.Sample,args.Date,args.version,args.output_path)
