@@ -117,6 +117,7 @@ def upload(user,ip_file,file_path,bucket_name,file_name,file_name2,output_file):
                 except botocore.exceptions.ReadTimeoutError as error:                    
                         continue
 if __name__ == '__main__':
+        print("script start")
         parser = argparse.ArgumentParser(description = "Python script to edit file to aws s3")
         parser.add_argument("-i","--input", type = str, required= True)
         parser.add_argument("-o","--output", type = str, required= True)
@@ -135,9 +136,12 @@ if __name__ == '__main__':
         parser.add_argument("-c","--cluster", type = str, required= True)
  
         args = parser.parse_args()
-        from_json_to_csv(args.input,args.output,args.version,
-                        args.env,args.date,args.ref,args.tool,args.cluster)
+        print("Script is going to launch")
+        from_json_to_csv(args.input,args.output,args.version,args.env,args.date,args.ref,args.tool,args.cluster)
+        print("From json to csv end")
         download(user= args.user,ip_file=args.endpoint,file_path2=args.file_path2,
                         bucket_name=args.bucket_name,file_name2=args.file_name2)
+        print("script download end")
         upload(user= args.user,ip_file=args.endpoint,file_path=args.file_path,
                         bucket_name=args.bucket_name,file_name=args.file_name,file_name2=args.file_name2,output_file=args.output)
+        print("upload end")
