@@ -4,10 +4,13 @@ import json
 import pandas as pd
 import argparse
 import boto3
+import botocore
+
 def from_json_to_csv(input_file,output_file,version,env,date,ref,tool,cluster):
     f = open(cluster)
     f = json.load(f)
     tool_version=f["witty"]["image"].split(":")[1]
+    print(tool_version,"tool_version")
     with open(input_file, 'r') as file:
         data=file.read()
     obj = json.loads(data)
