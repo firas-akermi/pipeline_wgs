@@ -78,8 +78,8 @@ form = expand("{output_path}/{analysis}/happy/Statistics.csv",output_path=output
 rapport = expand("{output_path}/{analysis}/happy/Rapport.html",output_path=output_path, analysis = full_name+Time)
 s3_stats=expand("{output_path}/{analysis}_hapy_stats_done.txt",output_path=output_path, analysis = full_name+Time)
 csv_s3 = expand("{output_path}/{analysis}_happy_csv_done.txt",output_path=output_path, analysis = full_name+Time)
-compress_hapy = expand("{output_path}/{analysis}/happy.tar.gz",output_path=output_path, analysis = full_name+Time)
-s3_hapy = expand("{output_path}/{analysis}_happy_done.txt",output_path=output_path, analysis = full_name+Time)
+compress_hapy = expand("{output_path}/{analysis}/happy_{date}.tar.gz",output_path=output_path, analysis = full_name+Time,date=Time)
+s3_hapy = expand("{output_path}/{analysis}_happy_{date}_done.txt",output_path=output_path, analysis = full_name+Time,date=Time)
 ########clinsv############
 merge = expand("{output_path}/{analysis}/CNV/{analysis}_merged.bam",output_path=output_path,analysis = full_name+Time)
 ped = expand("{output_path}/{analysis}/CNV/sampleInfo.ped",output_path=output_path,analysis = full_name+Time)
@@ -89,13 +89,13 @@ clinsv_cnvnator = expand("{output_path}/{analysis}/CNV/cnvnator/",output_path=ou
 clinsv_annotate = expand("{output_path}/{analysis}/CNV/annotate/",output_path=output_path,analysis = full_name+Time)
 clinsv_prioritize = expand("{output_path}/{analysis}/CNV/SV-CNV.vcf",output_path=output_path,analysis = full_name+Time)
 clinsv_qc = expand("{output_path}/{analysis}/CNV/results",output_path=output_path,analysis = full_name+Time)
-compress_clinsv = expand("{output_path}/{analysis}/ClinSV.tar.gz",output_path=output_path,analysis = full_name+Time)
-s3_clinsv = expand("{output_path}/{analysis}_ClinSV_done.txt",output_path=output_path,analysis = full_name+Time)
+compress_clinsv = expand("{output_path}/{analysis}/ClinSV_{date}.tar.gz",output_path=output_path,analysis = full_name+Time,date=Time)
+s3_clinsv = expand("{output_path}/{analysis}_ClinSV_{date}_done.txt",output_path=output_path,analysis = full_name+Time)
 ###########Wittyer###############
 witty = expand("{output_path}/{analysis}/Witty/",output_path=output_path,analysis = full_name+Time)
 witty_csv= expand("{output_path}/{analysis}_Witty_csv_done.txt",output_path=output_path,analysis = full_name+Time)
-compress_witty = expand("{output_path}/{analysis}/Wittyer.tar.gz",output_path=output_path,analysis = full_name+Time)
-s3_witty = expand("{output_path}/{analysis}_witty_done.txt",output_path=output_path,analysis = full_name+Time)
+compress_witty = expand("{output_path}/{analysis}/Wittyer_{date}.tar.gz",output_path=output_path,analysis = full_name+Time,date=Time)
+s3_witty = expand("{output_path}/{analysis}_witty_{date}_done.txt",output_path=output_path,analysis = full_name+Time,date=Time)
 if tool =='Hap.py':
     print("Running {} ....".format(tool))
     rule all:              
