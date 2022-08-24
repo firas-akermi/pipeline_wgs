@@ -74,7 +74,7 @@ def from_json_to_csv(input_file,output_file,version,env,date,ref,tool,cluster):
     df_event['Environnement']=list((env,) * len(df_event['Categorie'].values))
     df_event['Date']=list((date,) * len(df_event['Categorie'].values))
     df_event['Reference']=list((ref,) * len(df_event['Categorie'].values))
-    df_event['Outils']=list((tool,) * len(df_event['Categorie'].values))
+    df_event['Outils']=list((t_l,) * len(df_event['Categorie'].values))
     df_event.reset_index(inplace=True)
     df_event.drop(['index'],axis=1,inplace=True)
     df_base['Version']=list((version,) * len(df_base['Categorie'].values))
