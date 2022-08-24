@@ -3,6 +3,7 @@
 rule witty_csv:
     input:
         i1 = rules.witty.output,
+        
     output:
         o = "{output_path}/{analysis}_Witty_csv_done.txt"
     params:

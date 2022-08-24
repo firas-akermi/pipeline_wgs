@@ -2,15 +2,15 @@
 # Firas Akermi
 rule s3_happy:
     input:
-        i1= expand("{output_path}/{analysis}/happy_{date}.tar.gz",output_path=output_path,analysis = full_name+Time,date=Time)
+        i1= rules.compression_happy.output,
     output:
-        "{output_path}/{analysis}_happy_{date}_done.txt"
+        "{output_path}/{analysis}_happy_done.txt"
     params:
         script = config["scripts"]["S3_hapy"],
         user = config["S3"]["USER"],
         adress_ip = config["S3"]["IP"],
         Bucket = config["S3"]["Bucket_name"],
-        tar_name = lambda wildcards: "{}_{date}.tar.gz".format(wildcards.analysis,wildcards.date),
+        tar_name = lambda wildcards: "{}.tar.gz".format(wildcards.analysis),
         key = lambda wildcards:"MR/Pipeline_{}/{}/".format(Version, config['general_information']["tool"])
     shell:
         '''
