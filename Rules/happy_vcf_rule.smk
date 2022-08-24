@@ -2,8 +2,8 @@
 # Firas Akermi
 rule Comparaison_des_Haplotypes:
        input:
-            VCF_Query = expand("{output_path}/{analysis}/{analysis}.vcf.gz", output_path=output_path,  analysis=full_name), 
-            VCF_index = expand("{output_path}/{analysis}/{analysis}.vcf.gz.tbi", output_path =output_path,  analysis=full_name), 
+            VCF_Query = expand("{output_path}/{analysis}/{analysis}.vcf.gz", output_path=output_path,  analysis=full_name+Time), 
+            VCF_index = expand("{output_path}/{analysis}/{analysis}.vcf.gz.tbi", output_path =output_path,  analysis=full_name+Time), 
             Fasta= expand("{fasta_path}/{fasta_file}.fa", fasta_path=Fasta_Path, fasta_file = fasta_file_name), 
             GIAB_vcf = expand("{ref_vcf_path}/{ref_vcf}.vcf.gz", ref_vcf_path = REFERENCE_VCF_Path,  ref_vcf = ref_vcf_name), 
             GIAB_bed = expand("{ref_bed_path}/{ref_bed}.bed",  ref_bed_path = BED_Path,  ref_bed = bed_file_name)

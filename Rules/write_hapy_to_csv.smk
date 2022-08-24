@@ -2,7 +2,7 @@
 # Firas Akermi
 rule write_hapy_to_csv:
     input:
-        i1= expand("{output_path}/{analysis}/happy/Rapport.html",output_path=output_path,analysis=full_name)
+        i1= expand("{output_path}/{analysis}/happy/Rapport.html",output_path=output_path,analysis=full_name+Time)
         
     output:
         o =  "{output_path}/{analysis}_happy_csv_done.txt"

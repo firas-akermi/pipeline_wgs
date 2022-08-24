@@ -98,6 +98,7 @@ Arguments|   Description|     Exemple|
 |-pbedhg002|standard hg002 bed file path|/data/annotations/Human/hg38/references/NA24385_HG002/NISTv4.2.1|
 |-query_sv_path|path to  vcf query for witty|/scratch2/tmp/vsaillour/tmp/20220704_wittyer_test/A00666_0012_WGS_MR_FS00505001_index_21042022|
 |-query_sv_name|query vcf name for witty|A00666_0012_WGS_MR_FS00505001_index_21042022_SV-CNV|
+|-em|evaluation mode|SimpleCounting|
 
 ### Arguments spécifiques à ClinSV
 Arguments|    Description|      Exemple|
@@ -175,6 +176,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -pbedhg002 /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
 -query_sv_path [path to vcf query for witty] \
 -query_sv_name [query vcf name for witty] \
+-em SimpleCounting
 
 ```
 ###  3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV

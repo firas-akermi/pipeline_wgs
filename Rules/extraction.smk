@@ -2,7 +2,7 @@
 # Firas Akermi
 rule info_extraction:
     input:
-        VCF_hapy = expand("{input_path}/output/{sample}_hapy.vcf.gz",input_path=input_path,sample=full_name),
+        VCF_hapy = expand("{input_path}/output/{sample}_hapy.vcf.gz",input_path=input_path,sample=full_name+Time),
     output:
         tmp = "{input_path}/output/{sample}_hapy_inter.text",
         stat = "{input_path}/stats/{sample}_hapy_stats.csv",

@@ -15,7 +15,10 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
                 Sample_Path,Reference, Version, Run, Alias, Target, Disease, Sample,
                  Type, Date, analysis_name,fasta_name,bed_name,ref_vcf_name,user,
                  s3_bucket,base_bam,prefix_analysis,suffix_analysis,vcf_hg002_path,vcf_hg002_name,
-                 bed_hg002_path,bed_hg002_name,sv_vcf_query_path,sv_vcf_query_name,Env,tool):
+                 bed_hg002_path,bed_hg002_name,sv_vcf_query_path,sv_vcf_query_name,Env,tool,em):
+    start_time = datetime.now()
+    dt_string = start_time.strftime("%d%m%Y%H%M%S")
+    time_pipe=str(dt_string)
     data_config= {}
     data_config["general_path"]={
         "INPUT_PATH":INPUT_PATH,
@@ -32,6 +35,7 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     }
     data_config["general_information"]={
         "Description": "This script creates a config file for variant calling validation",
+        "Time":"_"+time_pipe,
         "Run": Run,
         "Alias": Alias,
         "Target": Target,
@@ -249,8 +253,13 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     data_config["sambamba_merge_clinsv"]={
         "OPTIONS": "-t 4"
     }
-    data_config["witty"]={
-        "options": "-em"
+    if em !=None:
+        data_config["witty"]={
+        "options": "-em " + em
+    }
+    else:
+        data_config["witty"]={
+        "options": "-em " +'d'
     }
     if base_bam!=None and prefix_analysis!= None and suffix_analysis != None:
         full_path=base_bam +'/' + prefix_analysis +'/' + suffix_analysis + "/chr_*/*markdup.bam"
@@ -262,7 +271,7 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
         data_config["bam_options"]={
         "paths":[]}
     json_obejct = json.dumps(data_config, indent = 4)
-    with open(INPUT_PATH+"/pipeline_config/config.json",'w') as outfile:
+    with open(INPUT_PATH+"/pipeline_config/"+tool+"_config.json",'w') as outfile:
         outfile.write(json_obejct)
     
 if __name__ == '__main__':
@@ -300,6 +309,7 @@ if __name__ == '__main__':
     parser.add_argument("-query_sv_name","--vcf_query_sv_name",help="query vcf name for witty", type = str, required= False)
     parser.add_argument("-Enviro","--Environnement",help="Calculation environment", type = str, required= True)
     parser.add_argument("-tool","--tools", help="tool to run Hapy, ClinSV or Witty",type = str, required= True)
+    parser.add_argument("-em","--witty_em", help="em Wittyer",type = str, required= False)
 
 
 
@@ -313,7 +323,7 @@ if __name__ == '__main__':
                 args.Analysis_name,args.Fasta_reference,args.Gold_standard_bed,args.Gold_standard_vcf,args.user,
                 args.bucket_name,args.bams_base,args.prefix_analysis,args.suffix_analysis,
                 args.vcfhg002_path,args.vcfhg002_name,args.pbedhg002_path,args.bedhg002_name,args.vcf_query_sv_path,args.vcf_query_sv_name,
-                args.Environnement,args.tools)
+                args.Environnement,args.tools,args.witty_em)
     
 
 
