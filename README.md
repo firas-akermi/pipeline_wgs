@@ -205,9 +205,6 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -prefix A00666_0012_WGS_MR_FS00505001_21042022 \
 -suffix FS00505001_S6 \
 ```
-# Evaluation Qualitative d’un pipeline d’appel de variants via GO-DOCKER
-Cette étape permet d’initialiser la méthode de comparaison de variants via les utilitaires Hap.py, Witty.er, ou ClinSV , et en prenant en compte les arguments déclarés dans le fichier de configuration (voir étape précédente).
-
 ## Procédure:
 1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe Connexion à  GO-DOCKER DEV
 2. Créer un nouvelle tâche (cliquer sur « Create job »)
@@ -219,7 +216,13 @@ Cette étape permet d’initialiser la méthode de comparaison de variants via l
     - **RAM requirements** (Gb) : 1
     - **Mount volumes** : snakemake, scratch2, scratch3, home
 4. Finalement, cliquer sur le bouton "Submit".
+
+
 ## Modèle de ligne de commande
+# Evaluation Qualitative d’un pipeline d’appel de variants via GO-DOCKER
+Cette étape permet d’initialiser la méthode de comparaison de variants via les utilitaires Hap.py, Witty.er, ou ClinSV , et en prenant en compte les arguments déclarés dans le fichier de configuration (voir étape précédente).
+
+
 ```
 #!/bin/bash
 set -o pipefail;
