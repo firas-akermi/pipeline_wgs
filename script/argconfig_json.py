@@ -16,20 +16,20 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
                  Type, Date, analysis_name,fasta_name,bed_name,ref_vcf_name,user,
                  s3_bucket,base_bam,prefix_analysis,suffix_analysis,vcf_hg002_path,vcf_hg002_name,
                  bed_hg002_path,bed_hg002_name,sv_vcf_query_path,sv_vcf_query_name,Env,tool,em):
+    start_time = datetime.now()
+    dt_string = start_time.strftime("%d%m%Y%H%M%S")
+    time_pipe=str(dt_string)
     Commande= '''
     #!/bin/bash 
     set -o pipefail;
     /data/snakemake/miniconda3/envs/snakemake/bin/snakemake \
     -s '''+INPUT_PATH+'''/Snakefile_validation.smk \
     -k --rerun-incomplete \
-    --configfile'''+INPUT_PATH+'''/pipeline_config/'''+tool+'''_config.json \
+    --configfile'''+INPUT_PATH+'''/pipeline_config/'''+tool+'_'+time_pipe+'''_config.json \
     --cluster-config '''+INPUT_PATH+'''/cluster_config/cluster_config.json \
     --cluster 'godjob.py create -n {cluster.name}_'''+Sample+''' -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods} -v {cluster.volume_scratch3} -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
     -j 40 -w 60 2>&1 | tee '''+INPUT_PATH+'''/log/'''+Sample+'''.log
     '''
-    start_time = datetime.now()
-    dt_string = start_time.strftime("%d%m%Y%H%M%S")
-    time_pipe=str(dt_string)
     data_config= {}
     data_config["general_path"]={
         "INPUT_PATH":INPUT_PATH,
