@@ -282,7 +282,7 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
         data_config["bam_options"]={
         "paths":[]}
     json_obejct = json.dumps(data_config, indent = 4)
-    with open(INPUT_PATH+"/pipeline_config/"+tool+"_config.json",'w') as outfile:
+    with open(INPUT_PATH+"/pipeline_config/"+tool+'_'+time_pipe+"_config.json",'w') as outfile:
         outfile.write(json_obejct)
     with open(INPUT_PATH+"/log/commande.txt",'w') as outfile:
         outfile.write(Commande)
