@@ -11,6 +11,6 @@ rule witty:
         option=config["witty"]["options"]
     shell:
         '''
-        /opt/Wittyer/Wittyer -i {input.vcf_query} -t {input.vcf_ref} {params.option} -b {input.bed} -o {output}
+        /opt/Wittyer/Wittyer -i {input.vcf_query} -t {input.vcf_ref} -b {input.bed} -o {output} {params.option}
         '''
 

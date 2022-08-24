@@ -25,7 +25,7 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     /data/snakemake/miniconda3/envs/snakemake/bin/snakemake \
     -s '''+INPUT_PATH+'''/Snakefile_validation.smk \
     -k --rerun-incomplete \
-    --configfile '''+INPUT_PATH+'''/pipeline_config/'''+tool+'_'+time_pipe+'''_config.json \
+    --configfile '''+INPUT_PATH+'''/pipeline_config/'''+tool+'_config'+'_'+time_pipe+'''.json \
     --cluster-config '''+INPUT_PATH+'''/cluster_config/cluster_config.json \
     --cluster 'godjob.py create -n {cluster.name}_'''+Sample+''' -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods} -v {cluster.volume_scratch3} -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
     -j 40 -w 60 2>&1 | tee '''+INPUT_PATH+'''/log/'''+analysis_name+'''_'''+time_pipe+'''.log
@@ -266,11 +266,11 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     }
     if em !=None:
         data_config["witty"]={
-        "options": "-em " + em
+        "options": "-em " + "{}".format(em)
     }
     else:
         data_config["witty"]={
-        "options": "-em " +'d'
+        "options": "-em " +"d"
     }
     if base_bam!=None and prefix_analysis!= None and suffix_analysis != None:
         full_path=base_bam +'/' + prefix_analysis +'/' + suffix_analysis + "/chr_*/*markdup.bam"
