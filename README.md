@@ -279,4 +279,4 @@ Minoche AE, Lundie B, Peters GB, Ohnesorg T, Pinese M, Thomas DM, et al. ClinSV:
 Stage M1, SeqOIA-IT, [avril 2022 - Août 2022]
 encadré par Adrien Legendre, Intégrateur SeqOIA-IT
 
-Titre du stage : Développement d'un pipeline automatisé pour la validation de détection de variants
+Titre du stage : Développement d'un pipeline automatisé pour la validation de détection des variants
