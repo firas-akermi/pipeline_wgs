@@ -273,7 +273,7 @@ Minoche AE, Lundie B, Peters GB, Ohnesorg T, Pinese M, Thomas DM, et al. ClinSV:
 
 # Auteur
 
-**Firas AKERMI**
+[**Firas AKERMI**](www.linkedin.com/in/firas-akermi)
 2021-2023 Etudiant en Master en Génomique, Mathématiques et Informatique pour la Santé et l'Environnement, Université Paris-Saclay
 
 Stage M1, SeqOIA-IT, [avril 2022 - Août 2022]
