@@ -28,7 +28,7 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     --configfile'''+INPUT_PATH+'''/pipeline_config/'''+tool+'_'+time_pipe+'''_config.json \
     --cluster-config '''+INPUT_PATH+'''/cluster_config/cluster_config.json \
     --cluster 'godjob.py create -n {cluster.name}_'''+Sample+''' -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods} -v {cluster.volume_scratch3} -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
-    -j 40 -w 60 2>&1 | tee '''+INPUT_PATH+'''/log/'''+Sample+'''.log
+    -j 40 -w 60 2>&1 | tee '''+INPUT_PATH+'''/log/'''+analysis_name+'''_'''+time_pipe+'''.log
     '''
     data_config= {}
     data_config["general_path"]={
