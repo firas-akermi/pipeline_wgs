@@ -90,7 +90,7 @@ clinsv_annotate = expand("{output_path}/{analysis}/CNV/annotate/",output_path=ou
 clinsv_prioritize = expand("{output_path}/{analysis}/CNV/SV-CNV.vcf",output_path=output_path,analysis = full_name+Time)
 clinsv_qc = expand("{output_path}/{analysis}/CNV/results",output_path=output_path,analysis = full_name+Time)
 compress_clinsv = expand("{output_path}/{analysis}/ClinSV_{date}.tar.gz",output_path=output_path,analysis = full_name+Time,date=Time)
-s3_clinsv = expand("{output_path}/{analysis}_ClinSV_{date}_done.txt",output_path=output_path,analysis = full_name+Time)
+s3_clinsv = expand("{output_path}/{analysis}_ClinSV_{date}_done.txt",output_path=output_path,analysis = full_name+Time,date=Time)
 ###########Wittyer###############
 witty = expand("{output_path}/{analysis}/Witty/",output_path=output_path,analysis = full_name+Time)
 witty_csv= expand("{output_path}/{analysis}_Witty_csv_done.txt",output_path=output_path,analysis = full_name+Time)
