@@ -266,11 +266,11 @@ def create_json(INPUT_PATH,OUTPUT_PATH,SNAKEMAKE_RULES,REFERENCE_VCF_Path,BED_Pa
     }
     if em !=None:
         data_config["witty"]={
-        "options": "-em " + "'{}'".format(em)
+        "options": "-em " + "{}".format(em)
     }
     else:
         data_config["witty"]={
-        "options": "-em " +"'d'"
+        "options": "-em " +"d"
     }
     if base_bam!=None and prefix_analysis!= None and suffix_analysis != None:
         full_path=base_bam +'/' + prefix_analysis +'/' + suffix_analysis + "/chr_*/*markdup.bam"
