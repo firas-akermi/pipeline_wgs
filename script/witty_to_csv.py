@@ -10,6 +10,7 @@ def from_json_to_csv(input_file,output_file,version,env,date,ref,tool,cluster):
     f = open(cluster)
     f = json.load(f)
     tool_version=f["witty"]["image"].split(":")[1]
+    t_l=tool+":"+tool_version 
     print(tool_version,"tool_version")
     with open(input_file, 'r') as file:
         data=file.read()
@@ -80,7 +81,7 @@ def from_json_to_csv(input_file,output_file,version,env,date,ref,tool,cluster):
     df_base['Environnement']=list((env,) * len(df_base['Categorie'].values))
     df_base['Date']=list((date,) * len(df_base['Categorie'].values))
     df_base['Reference']=list((ref,) * len(df_base['Categorie'].values))
-    df_base['Outils']=list((tool+":"+tool_version,) * len(df_base['Categorie'].values))
+    df_base['Outils']=list((t_l,) * len(df_base['Categorie'].values))
     df_base.reset_index(inplace=True)
     df_base.drop(['index'],axis=1,inplace=True)
     df_event.to_csv(output_file,index=False)
