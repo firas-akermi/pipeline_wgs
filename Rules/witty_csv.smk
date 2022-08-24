@@ -18,9 +18,9 @@ rule witty_csv:
         tool=config["general_information"]["tool"],
         n2= lambda wildcards:"{}/{}/Witty/data.csv".format(wildcards.output_path,wildcards.analysis),
         cluster_config=config["general_path"]["INPUT_PATH"]+"/"+"cluster_config/cluster_config.json",
-        i2 = rules.witty.output[0]+'Wittyer.Stats.json'
+        i2 = rules.witty.output[0]+'Wittyer.Stats.json'    
     log:
-        l= "{output_path}/{analysis}_Witty_csv_done.log"
+        "{output_path}/{analysis}_Witty_csv_done.log"
     shell:
         '''
         python3 {params.script} -i {params.i2} -o {params.out} -v {params.version} -e {params.env} -d {params.date} -r {params.ref} -u {params.user} -ip {params.adress_ip} \
