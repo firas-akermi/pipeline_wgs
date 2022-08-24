@@ -25,7 +25,7 @@ Le pipeline de validation de détection de variants est accessible depuis scratc
 
 L’exécution pipeline de validation  se découpe en 2 étapes :
 1. Création du fichier config
-2. Lancement du pipeline
+2. Evaluation qualitative du pipeline d’appel de variants à partir du fichier config
 # Installation et nom d’utilisateur
 
 Le pipeline de validation de détection de variants est installé sous scratch3, et accessible sous  /scratch3/spim-preprod/pipeline_validation_wgs
@@ -98,6 +98,7 @@ Arguments|   Description|     Exemple|
 |-pbedhg002|standard hg002 bed file path|/data/annotations/Human/hg38/references/NA24385_HG002/NISTv4.2.1|
 |-query_sv_path|path to  vcf query for witty|/scratch2/tmp/vsaillour/tmp/20220704_wittyer_test/A00666_0012_WGS_MR_FS00505001_index_21042022|
 |-query_sv_name|query vcf name for witty|A00666_0012_WGS_MR_FS00505001_index_21042022_SV-CNV|
+|-em|evaluation mode|SimpleCounting|
 
 ### Arguments spécifiques à ClinSV
 Arguments|    Description|      Exemple|
@@ -175,6 +176,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -pbedhg002 /data/annotations/Human/GRCh38/references/NA12878_HG001/NISTv3.3.2 \
 -query_sv_path [path to vcf query for witty] \
 -query_sv_name [query vcf name for witty] \
+-em SimpleCounting
 
 ```
 ###  3. Exemple de ligne de commande (de création du fichier config) en vue d’une méthode de comparaison de variants via ClinSV
@@ -203,8 +205,11 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
 -prefix A00666_0012_WGS_MR_FS00505001_21042022 \
 -suffix FS00505001_S6 \
 ```
+# Evaluation Qualitative d’un pipeline d’appel de variants via GO-DOCKER
+Cette étape permet d’initialiser la méthode de comparaison de variants via les utilitaires Hap.py, Witty.er, ou ClinSV , et en prenant en compte les arguments déclarés dans le fichier de configuration (voir étape précédente).
+
 ## Procédure:
-1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe xxx
+1. Ouvrir l’interface web GO-DOCKER DEV (usager : spim-preprod) – voir paragrahe Connexion à  GO-DOCKER DEV
 2. Créer un nouvelle tâche (cliquer sur « Create job »)
 3. Remplir :
     - **Name** : argconfig_json (nom laissé libre selon la préférence de l’utilisateur)
@@ -214,18 +219,7 @@ python3 /scratch3/spim-preprod/pipeline_validation_wgs/script/argconfig_json.py 
     - **RAM requirements** (Gb) : 1
     - **Mount volumes** : snakemake, scratch2, scratch3, home
 4. Finalement, cliquer sur le bouton "Submit".
-
-## Résultats :
-La tâche de création du fichier config.json est terminée avec succès lorsque la section « over jobs » de GO-DOCKER laisse apparaître un statut « over » surlignée en vert ; (la tâche est en échec si la couleur de surbrillance est de couleur noire ; dans ce cas, il y a une erreur dans la ligne de commande).
-
-En complément, le fichier .json de configuration de pipeline a été créé et/ou mis à jour sous /scratch3/spim-preprod/pipeline_validation_wgs/pipeline_config/config.json
-La date de mise à jour et/ou de création du fichier config.json pourrait être vérifiée directement sur le serveur (scratch3).
-
-# Lancement de pipeline
-Aprés la création du fichier config, il est poosible de lancer le pipeline par la commande ci-dessous via Go-docker
-
-## Commande:
-Copier la commande ci-dessous dans go-docker en sécifiant les paramètres entre crochés "[]"
+## Modèle de ligne de commande
 ```
 #!/bin/bash
 set -o pipefail;
@@ -237,6 +231,30 @@ set -o pipefail;
 --cluster 'godjob.py create -n {cluster.name}_[Sample id] -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods} -v {cluster.volume_scratch3} -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
 -j 40 -w 60 2>&1 | tee /scratch3/spim-preprod/pipeline_validation_wgs/log/[Full analysis name].log
 ```
+
+# Exemple de ligne de commande 
+En considérant :
+- [Sample id] = FS00505001
+- [Full analysis name] = A00666_0012_WGS_MR_FS00505001_index_21042022_final
+```
+#!/bin/bash
+set -o pipefail;
+/data/snakemake/miniconda3/envs/snakemake/bin/snakemake \
+-s /scratch3/spim-preprod/pipeline_validation_wgs/Snakefile_validation.smk \
+-k --rerun-incomplete \
+--configfile /scratch3/spim-preprod/pipeline_validation_wgs/pipeline_config/config.json \
+--cluster-config /scratch3/spim-preprod/pipeline_validation_wgs/cluster_config/cluster_config.json \
+--cluster 'godjob.py create -n {cluster.name}_FS00505001 -t {cluster.tags} --external_image -v {cluster.volume_snakemake} -v {cluster.volume_home} -v {cluster.volume_scratch2} -v {cluster.volume_irods} -v {cluster.volume_scratch3} -v {cluster.volume_annotations} -c {cluster.cpu} -r {cluster.mem} -i {cluster.image} -s' \
+-j 40 -w 60 2>&1 | tee /scratch3/spim-preprod/pipeline_validation_wgs/log/A00666_0012_WGS_MR_FS00505001_index_21042022_final.log
+```
+**Conseil :** il est cohérent d’utiliser les valeurs des 2 paramètres [Sample id] et [Full analysis name] comme celles décrites dans le fichier de configuration.
+
+## Résultats :
+La tâche de création du fichier config.json est terminée avec succès lorsque la section « over jobs » de GO-DOCKER laisse apparaître un statut « over » surlignée en vert ; (la tâche est en échec si la couleur de surbrillance est de couleur noire ; dans ce cas, il y a une erreur dans la ligne de commande).
+
+Afin de s'assurer de la complétude du pipeline vérifier la présence des fichiers *_done.txt et *_csv_done.txt. Ce sont des fichiers vides indiquant le succés de l'analyse et de l'archivage des résultats sur S3.  
+
+Aprés chaque analyse les résultats sont ajoutés dans un fichier out.csv et envoyé au S3 sous le nom data.csv.
 # AWS_S3
 
  Le pipeline permet la compression et le stockage des résultats sur aws_S3,après chaque analyse. Pour cela la [configuration](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-configure-files.html) de S3 doit être spécifiée sous :
@@ -254,3 +272,13 @@ Les résultats peuvent être visualisés via un [tableau de bord interactif](htt
 [ClinSV](https://github.com/KCCG/ClinSV)
 
 Minoche AE, Lundie B, Peters GB, Ohnesorg T, Pinese M, Thomas DM, et al. ClinSV: clinical grade structural and copy number variant detection from whole genome sequencing data. Genome Medicine. 2021;13:32.
+
+# Auteur
+
+[**Firas AKERMI**](www.linkedin.com/in/firas-akermi)
+2021-2023 Etudiant en Master en Génomique, Mathématiques et Informatique pour la Santé et l'Environnement, Université Paris-Saclay
+
+Stage M1, SeqOIA-IT, [avril 2022 - Août 2022]
+encadré par Adrien Legendre, Intégrateur SeqOIA-IT
+
+Titre du stage : Développement d'un pipeline automatisé pour la validation de détection des variants
