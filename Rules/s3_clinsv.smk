@@ -2,15 +2,15 @@
 # Firas Akermi
 rule s3_clinsv:
     input:
-        i1= rules.compression_clinsv.output,
+        i1=expand("{output_path}/{analysis}/ClinSV_{date}.tar.gz",output_path=output_path,analysis = full_name+Time,date=Time)
     output:
-        "{output_path}/{analysis}_ClinSV_done.txt"
+        "{output_path}/{analysis}_ClinSV_{date}_done.txt"
     params:
         script = config["scripts"]["S3_hapy"],
         user = config["S3"]["USER"],
         adress_ip = config["S3"]["IP"],
         Bucket = config["S3"]["Bucket_name"],
-        tar_name = lambda wildcards: "{}.tar.gz".format(wildcards.analysis),
+        tar_name = lambda wildcards: "{}_{date}.tar.gz".format(wildcards.analysis,wildcards.date),
         key = lambda wildcards:"MR/Pipeline_{}/{}/".format(Version, config['general_information']["tool"])
     shell:
         '''
