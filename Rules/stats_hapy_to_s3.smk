@@ -6,6 +6,7 @@ rule stats_hapy_to_s3:
     output:
         o="{output_path}/{analysis}_hapy_stats_done.txt",
         data= "{output_path}/{analysis}/happy/statistics.csv",
+        tempf= "{output_path}/{analysis}/happy/statistics.temp.csv"
         
     params:
         script =config["scripts"]["hapy_stats_S3"],
@@ -19,6 +20,6 @@ rule stats_hapy_to_s3:
         tool=config["general_information"]["tool"],
     shell:
         '''
-        python3 {params.script} -i {input.i1} -o {output.data} -v {params.version} -e {params.env} -d {params.date} -r {params.ref} -u {params.user} -ip {params.adress_ip} \
-        -b {params.Bucket} -t {params.tool} -n statistics.csv -f {output.data} -f2 statistics.csv -n2 {output.data} > {output.o}
+        python3 {params.script} -i {input.i1} -o {output.tempf} -v {params.version} -e {params.env} -d {params.date} -r {params.ref} -u {params.user} -ip {params.adress_ip} \
+        -b {params.Bucket} -t {params.tool} -n statistics.csv -f {output.tempf} -f2 statistics.csv -n2 {output.d} > {output.o}
         '''
