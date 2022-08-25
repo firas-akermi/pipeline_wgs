@@ -19,7 +19,7 @@ def formating(input_file,output_file,version,env,date,ref,tool):
     data['Date']=[date for i in range(len(data["Categorie"]))]
     data['Reference']=[ref for i in range(len(data["Categorie"]))]
     data['Outils']=[tool for i in range(len(data["Categorie"]))]
-    data.to_csv(output_file,index=False) 
+    data.to_csv(input_file,index=False) 
 
 def download(user,ip_file,file_path2,bucket_name,file_name2):
         boto3.setup_default_session(profile_name="default")
