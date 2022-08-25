@@ -251,6 +251,7 @@ set -o pipefail;
 -j 40 -w 60 2>&1 | tee /scratch3/spim-preprod/pipeline_validation_wgs/log/A00666_0012_WGS_MR_FS00505001_index_21042022_final.log
 ```
 **Conseil :** il est cohérent d’utiliser les valeurs des 2 paramètres [Sample id] et [Full analysis name] comme celles décrites dans le fichier de configuration.
+**Remarque :** La commande d'exécution du pipeline est générée automatiquement après la création de fichier de configuration. Il suffit de copier le contenu de fichier commande_*.txt sous le répertoire pipeline_config et le coller dans la plateforme GO-Docker
 
 ## Résultats :
 La tâche de création du fichier config.json est terminée avec succès lorsque la section « over jobs » de GO-DOCKER laisse apparaître un statut « over » surlignée en vert ; (la tâche est en échec si la couleur de surbrillance est de couleur noire ; dans ce cas, il y a une erreur dans la ligne de commande).
@@ -279,7 +280,7 @@ Minoche AE, Lundie B, Peters GB, Ohnesorg T, Pinese M, Thomas DM, et al. ClinSV:
 # Auteur
 
 [**Firas AKERMI**](www.linkedin.com/in/firas-akermi)
-2021-2023 Etudiant en Master en Génomique, Mathématiques et Informatique pour la Santé et l'Environnement, Université Paris-Saclay
+2021-2023 Ingénieur en biologie, titulaire d'un master en traitement de données et etudiant en Master 1 en Bioinformatique à Université Paris-Saclay
 
 Stage M1, SeqOIA-IT, [avril 2022 - Août 2022]
 encadré par Adrien Legendre, Intégrateur SeqOIA-IT

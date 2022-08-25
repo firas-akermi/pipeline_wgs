@@ -35,9 +35,10 @@ def download(user,ip_file,file_path2,bucket_name,file_name2):
                         break
                 except botocore.exceptions.ReadTimeoutError as error:                    
                         continue
-def upload(user,ip_file,file_path,bucket_name,file_name,file_name2,output_file):
+
+def upload(input_file,ip_file,file_path,bucket_name,file_name,file_name2,output_file):
         df=pd.read_csv(file_name2)
-        data= pd.read_csv(file_path)
+        data= pd.read_csv(input_file)
         csv=pd.concat([df,data],sort=False)
         csv.to_csv(output_file,index=False)
         boto3.setup_default_session(profile_name="default")
@@ -74,5 +75,5 @@ if __name__ == '__main__':
                         args.env,args.date,args.ref,args.tool)
         download(user= args.user,ip_file=args.endpoint,file_path2=args.file_path2,
                         bucket_name=args.bucket_name,file_name2=args.file_name2)
-        upload(user= args.user,ip_file=args.endpoint,file_path=args.file_path,
+        upload(input_file= args.input,ip_file=args.endpoint,file_path=args.file_path,
                         bucket_name=args.bucket_name,file_name=args.file_name,file_name2=args.file_name2,output_file=args.output)
