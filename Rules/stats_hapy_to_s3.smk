@@ -5,8 +5,7 @@ rule stats_hapy_to_s3:
         i1=rules.Mise_en_forme_sous_format_csv.output,
     output:
         o="{output_path}/{analysis}_hapy_stats_done.txt",
-        out = "{output_path}/{analysis}/happy/out.csv",
-        data= "{output_path}/{analysis}/happy/data.csv",
+        data= "{output_path}/{analysis}/happy/statistics.csv",
         
     params:
         script =config["scripts"]["hapy_stats_S3"],
@@ -18,9 +17,8 @@ rule stats_hapy_to_s3:
         date=config["general_information"]["Date"],
         ref = config["general_information"]["Reference"],
         tool=config["general_information"]["tool"],
-        n2= lambda wildcards:"{}/{}/happy/statistics.csv".format(wildcards.output_path,wildcards.analysis)
     shell:
         '''
-        python3 {params.script} -i {input.i1} -o {output.out} -v {params.version} -e {params.env} -d {params.date} -r {params.ref} -u {params.user} -ip {params.adress_ip} \
-        -b {params.Bucket} -t {params.tool} -n statistics.csv -f {output.out} -f2 statistics.csv -n2 {output.data} > {output.o}
+        python3 {params.script} -i {input.i1} -o {output.data} -v {params.version} -e {params.env} -d {params.date} -r {params.ref} -u {params.user} -ip {params.adress_ip} \
+        -b {params.Bucket} -t {params.tool} -n statistics.csv -f {output.data} -f2 statistics.csv -n2 {output.data} > {output.o}
         '''
