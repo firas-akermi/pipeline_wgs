@@ -21,5 +21,5 @@ rule stats_hapy_to_s3:
     shell:
         '''
         python3 {params.script} -i {input.i1} -o {output.tempf} -v {params.version} -e {params.env} -d {params.date} -r {params.ref} -u {params.user} -ip {params.adress_ip} \
-        -b {params.Bucket} -t {params.tool} -n statistics.csv -f {output.tempf} -f2 statistics.csv -n2 {output.d} > {output.o}
+        -b {params.Bucket} -t {params.tool} -n statistics.csv -f {output.tempf} -f2 statistics.csv -n2 {output.data} > {output.o}
         '''
