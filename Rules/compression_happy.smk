@@ -2,9 +2,8 @@
 # Firas Akermi
 rule compression_happy:
     input:
-        i1= rules.Analyse_des_resultats_et_generation_du_rapport_html.output.o1,
-        i3= rules.write_hapy_to_csv.output.o,
-        i4 = rules.stats_hapy_to_s3.output
+        i1= rules.write_hapy_to_csv.output.o,
+        i2 = rules.stats_hapy_to_s3.output
     output:
         "{output_path}/{analysis}/happy.tar.gz"
     shell:
