@@ -4,8 +4,7 @@ rule Analyse_des_resultats_et_generation_du_rapport_html:
     input:
         i="{output_path}/{analysis}/happy/Statistics.csv"
     output:
-        o1="{output_path}/{analysis}/happy/Rapport.html",
-        o2="{output_path}/{analysis}/happy/"
+        o1="{output_path}/{analysis}/happy/Rapport.html"
     params:
         s = config["general_information"]["Sample"],
         d = config["general_information"]["Date"],
