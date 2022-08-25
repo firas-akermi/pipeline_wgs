@@ -280,7 +280,7 @@ Minoche AE, Lundie B, Peters GB, Ohnesorg T, Pinese M, Thomas DM, et al. ClinSV:
 # Auteur
 
 [**Firas AKERMI**](www.linkedin.com/in/firas-akermi)
-2021-2023 Ingénieur en biologie, titulaire d'un master en traitement de données et etudiant en Master 1 en Bioinformatique à Université Paris-Saclay
+2021-2023 Ingénieur en biologie et etudiant en Master 1 en Bioinformatique à Université Paris-Saclay
 
 Stage M1, SeqOIA-IT, [avril 2022 - Août 2022]
 encadré par Adrien Legendre, Intégrateur SeqOIA-IT
