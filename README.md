@@ -34,7 +34,7 @@ Le nom d’utilisateur qui exécute le pipeline est spim-preprod
 
 Pour cloner le pipeline de validation (sous  scratch3), faire :
 ```
-git clone https://gitlab-bioinfo.aphp.fr/Seqoia-Diag-Pipelines/pipeline_validation_wgs.git
+git clone https://github.com/firas-akermi/pipeline_wgs.git
 ```
 
 # Les préalables (à l’exécution du pipeline)
@@ -266,7 +266,7 @@ Aprés chaque analyse les résultats sont ajoutés dans un fichier out.csv et en
 /home/.aws/credentials
 ```
 # Interface
-Les résultats peuvent être visualisés via un [tableau de bord interactif](https://gitlab-bioinfo.aphp.fr/Seqoia-Diag-Pipelines/dashboard_validation).
+Les résultats peuvent être visualisés via un [tableau de bord interactif](https://github.com/firas-akermi/dashboard_pipeline_validation_wgs.git).
 
 # Références/Publications
 [Hap.py](https://github.com/Illumina/hap.py)
